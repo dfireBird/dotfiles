@@ -29,6 +29,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- "light-locker-command -l"
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
+
+# Launch Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 exec --no-startup-id nm-applet
 
 exec --no-startup-id light-locker
@@ -39,7 +43,7 @@ exec --no-startup-id dunst
 
 exec --no-startup-id picom -b
 
-exec feh --bg-fill ~/Pictures/Wallpapers/RicknMorty.png
+exec feh --bg-fill $HOME/Pictures/Wallpapers/RicknMorty.png
 
 # xinput touchpad synaptics
 exec xinput set-prop 11 323 1
@@ -72,11 +76,13 @@ bindsym $mod+Shift+q kill
 bindsym $alt+F4 kill
 
 ## Personal Window Configuration
-for_window [class=".*"] border normal 1
+for_window [class=".*"] border none 1
 floating_maximum_size 640 x 480
 for_window [class="Spotify"] move to workspace 9
 for_window [title="Discord Updater"] border none 0
 for_window [class="Alacritty"] layout default, border none 0
+for_window [class="feh"] floating enable border normal
+for_window [class="Pcmanfm"] floating enable border normal
 hide_edge_borders vertical
 for_window [urgent=latest] focus
 
@@ -87,7 +93,8 @@ for_window [urgent=latest] focus
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+space exec --no-startup-id "rofi -show-icons -show drun"
+bindsym $mod+Tab exec --no-startup-id "rofi -show-icons -modi windowcd,window,drun -show window"
 
 # Multi-screen screenshots with scrot
 bindsym --release Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'mv $f ~/Pictures/Screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/`ls -1 -t ~/Pictures/Screenshots | head -1`' # All screens
@@ -106,9 +113,6 @@ bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-# focusing keybindings personal
-bindsym $alt+Tab focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -140,7 +144,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Ctrl+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -149,7 +153,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Personal Default layout
-workspace_layout tabbed
+# workspace_layout tabbed
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -163,6 +167,10 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+# workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+bindsym $mod+u workspace back_and_forth
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -236,22 +244,22 @@ client.background       #F8F8F2
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	
-	font pango:monospace 8
-	height 20
-        status_command exec ~/.config/i3/net-speed.sh
-	colors {
-	        background #282A36
-		statusline #F8F8F2
-		separator  #44475A
 
-		focused_workspace  #44475A #44475A #F8F8F2
-		active_workspace   #282A36 #44475A #F8F8F2
-		inactive_workspace #282A36 #282A36 #BFBFBF
-		urgent_workspace   #FF5555 #FF5555 #F8F8F2
-		binding_mode       #FF5555 #FF5555 #F8F8F2
-	}
-}
+#bar {	
+#	font pango:monospace 8
+#	height 20
+#        status_command exec ~/.config/i3/net-speed.sh
+#	colors {
+#	        background #282A36
+#		statusline #F8F8F2
+#		separator  #44475A
+
+#		focused_workspace  #44475A #44475A #F8F8F2
+#		active_workspace   #282A36 #44475A #F8F8F2
+#		inactive_workspace #282A36 #282A36 #BFBFBF
+#		urgent_workspace   #FF5555 #FF5555 #F8F8F2
+#		binding_mode       #FF5555 #FF5555 #F8F8F2
+#	}
+#}
 
 exec discord
