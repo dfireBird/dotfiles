@@ -88,7 +88,7 @@ for_window [urgent=latest] focus
 ## Assign certain applications to specific workspaces
 assign [class="discord"] $ws1
 assign [class="google-chrome"] $ws2
-assign [class="emacs"] $ws3
+assign [class="Emacs"] $ws3
 assign [class="Alacritty"] $ws4
 assign [class="Spotify"] $ws9
 
