@@ -89,6 +89,7 @@ for_window [urgent=latest] focus
 assign [class="discord"] $ws1
 assign [class="google-chrome"] $ws2
 assign [class="Emacs"] $ws3
+assign [class="VSCodium"] $ws3
 assign [class="Alacritty"] $ws4
 assign [class="Spotify"] $ws9
 
@@ -260,12 +261,15 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+e exec emacs
 
 ## Color configuration
+set_from_resource $fg i3wm.color7
+set_from_resource $bg i3wm.color2
+
 # class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+client.focused          $bg	$bg	$fg	$bg	  $bg
+client.focused_inactive $bg	$bg	$fg	$bg	  $bg
+client.unfocused        $bg	$bg	$fg	$bg	  $bg
+client.urgent           $bg	$bg	$fg	$bg	  $bg
+client.placeholder      $bg	$bg	$fg	$bg	  $bg
 
 client.background       #F8F8F2
 

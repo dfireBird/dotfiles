@@ -6,12 +6,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
- export PATH=$HOME/.bin:$PATH
+export PATH=$HOME/.bin:$
 
-# export PATH=$PATH:$HOME/.local/bin
-export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+#export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools
-export STUDIO_JDK="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-0.fc31.x86_64"
+export GTK_THEME=Adwaita:dark
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -24,18 +23,6 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="spaceship"
 # ZSH_THEME="random"
 
-POWERLEVEL9K_MODE="nerdfont-complete"
-POWERLEVEL9K_DISABLE_RPROMPT=true
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▶ "
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-
-POWERLEVEL9K_CUSTOM_FEDORA_ICON="echo  "
-POWERLEVEL9K_CUSTOM_FEDORA_ICON_BACKGROUND=069
-POWERLEVEL9K_CUSTOM_FEDORA_ICON_FOREGROUND=015
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_fedora_icon context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(ram root_indicator time)
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
