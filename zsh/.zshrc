@@ -1,7 +1,7 @@
 (cat ~/.cache/wal/sequences &)
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.bin:$PATH
+export PATH=$HOME/bin:$PATH
 
 #export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 #export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools
