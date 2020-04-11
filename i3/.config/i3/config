@@ -105,10 +105,12 @@ bindsym $mod+space exec --no-startup-id "rofi -show-icons -show drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show-icons -modi windowcd,window,drun -show window"
 
 # Multi-screen screenshots with scrot
-bindsym --release Print exec scrot 'Screenshot_%Y%m%d_%H%M%S.png' -e 'mv $f ~/Pictures/Screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/`ls -1 -t ~/Pictures/Screenshots | head -1`' # All screens
+bindsym --release Print exec i3-scrot -d
 
 # OSX-like area selection screenshots
-bindsym --release Shift+Print exec scrot -s 'Screenshot_%Y%m%d_%H%M%S.png' -e 'mv $f ~/Pictures/Screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/Screenshots/`ls -1 -t ~/Pictures/Screenshots | head -1`' # Area selection
+bindsym --release Shift+Print exec i3-scrot -s
+
+bindsym --release Ctrl+Shift+Print exec i3-scrot -w
 
 # change focus
 bindsym $mod+j focus left
