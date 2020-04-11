@@ -1,3 +1,4 @@
+
 #+TITLE: An Emacs Configuration
 #+Author: Phoenix181 or dfireBird
 #+Startup: Overview
@@ -141,6 +142,15 @@
       (doom-modeline-buffer-encoding nil)
       (doom-modeline-buffer-file-name-style 'relative-from-project))
 #+end_src
+*** Zoom
+    Zoom manages window size
+#+begin_src emacs-lisp
+(use-package zoom
+  :bind
+  ("C-x +" . zoom)
+  :custom
+  (zoom-mode t))
+#+end_src
 ** Interface
 *** Completion Frontend
     Ivy is minimal and custom completion frontend which I'm going to use
@@ -171,12 +181,15 @@
 (use-package page-break-lines)
 
 (use-package dashboard
+    :custom
+    (dashboard-center-content t)
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    (dashboard-startup-banner 'logo)
     :config
-    (setq dashboard-center-content t
-          dashboard-set-heading-icons t
-          dashboard-set-file-icons t
-          dashboard-startup-banner 'logo)
-    (add-to-list 'dashboard-items '(project) t)
+    (setq dashboard-items '((recents  . 5)
+                        (projects . 5)
+                        (agenda . 5)))
     (dashboard-setup-startup-hook))
 
 #+end_src
