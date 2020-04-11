@@ -1,0 +1,443 @@
+#+TITLE: An Emacs Configuration
+#+Author: Phoenix181 or dfireBird
+#+Startup: Overview
+* Preface
+    After sometime in spacemacs (interested in emacs a long time 
+    never had chance to come), it's time to write my own configuration!
+    If you want these you can clone it and do anything as you wish.
+
+
+    Thanks to [[https://github.com/the-programmers-hangout][TPH]] who made an spolight to help me switch into emacs world 
+    after year long usage of VSCode and other IDEs!
+    Special thanks to [[https://github.com/kkhan01][Shan]] who gave a lots of dot files I need.
+
+* Pre-Configuration
+** Initialization
+    Lexical binding suppport globally! (I don't know what it tho?)
+
+#+begin_src emacs-lisp
+   ;; -*- lexical-binding: t -*-
+#+end_src
+
+** Garbage Collection
+    Gargbage Collection is not needed (that's whay they say)
+    (maybe needed on old machine - shan)
+
+#+begin_src emacs-lisp
+    (eval-and-compile
+      (defun srs|revert-gc ()
+        ;; reset values
+        (setq gc-cons-threshold 16777216
+              gc-cons-percentage 0.1
+              file-name-handler-alist (append last-file-name-handler-alist
+	  	                                  file-name-handler-alist))
+        ;; delete any duplicate values
+        (cl-delete-duplicates file-name-handler-alist :test 'equal)
+        ;; get rid of temporarily variables
+        (makunbound 'last-file-name-handler-alist))
+
+      ;; set everything to efficient limits and save values
+      (setq gc-cons-threshold most-positive-fixnum
+            gc-cons-percentage 0.6
+            last-file-name-handler-alist file-name-handler-alist
+            file-name-handler-alist nil)
+
+      (add-hook 'after-init-hook 'srs|revert-gc))
+#+end_src
+* Package Setup
+** Package Archives
+    Archives to use for third-party packages useful to get many pacakges
+#+begin_src emacs-lisp
+    (require 'package)
+    (setq package-enable-at-startup nil)
+    
+    (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")))
+
+    (package-initialize)
+#+end_src
+
+** Package Installers
+    A tool to automatically download the package from sources and loads it
+    whenever the packages is in need
+
+#+begin_src emacs-lisp
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package))
+    
+    (eval-when-compile
+      (require 'use-package))
+
+    (use-package use-package
+      :config
+      (setq-default use-package-always-demand nil
+                    use-package-always-ensure t
+                    use-package-verbose t))
+
+      (setq-default byte-compile-warnings nil)
+#+end_src
+
+* Startup
+** Elcord
+    Elcord is RPC for discord (I like to showoff)
+
+#+begin_src emacs-lisp
+    (use-package elcord
+      :init
+      (elcord-mode)
+      :custom
+      (elcord-use-major-mode-as-main-icon t))
+#+end_src
+
+** Which-key
+#+begin_src emacs-lisp
+    (use-package which-key
+      :init
+      (which-key-mode))
+#+end_src
+
+** Appperance
+*** GUI
+    The config to disable menu, tool and scroll bars
+#+begin_src emacs-lisp
+    (tool-bar-mode -1)
+    (menu-bar-mode -1)
+    (scroll-bar-mode -1)
+#+end_src
+*** Theme
+    Doom-theme especially for doom-modeline
+#+begin_src emacs-lisp
+    (use-package doom-themes
+      :config
+      (setq doom-themes-enable-bold t
+            doom-themes-enable-italic t)
+      (load-theme 'doom-one t)
+
+      (doom-themes-visual-bell-config)
+      (setq doom-themes-treemacs-theme "doom-colors")
+      (doom-themes-treemacs-config)
+      
+      (doom-themes-org-config))
+#+end_src
+
+*** Font
+#+begin_src emacs-lisp
+    (use-package all-the-icons)
+    (set-face-attribute 'default nil 
+                         :font "Jetbrains Mono")
+#+end_src
+
+*** Doom mode line
+    Doom mode line is custome mode line with several unqiue features
+#+begin_src emacs-lisp
+    (use-package doom-modeline
+      :ensure t
+      :init (doom-modeline-mode t)
+      :custom
+      (doom-modeline-icon t)
+      (doom-modeline-major-mode-icon t)
+      (doom-modeline-buffer-encoding nil)
+      (doom-modeline-buffer-file-name-style 'relative-from-project))
+#+end_src
+** Interface
+*** Completion Frontend
+    Ivy is minimal and custom completion frontend which I'm going to use
+#+begin_src emacs-lisp
+    (use-package ivy
+      :bind
+      ("C-x b" . ivy-switch-buffer)
+      :custom
+      (ivy-use-virtual-buffers t)
+      (enable-recursive-mini-buffers t)
+      :config
+      (ivy-mode))
+
+    (use-package counsel
+      :bind
+      ("C-x C-f" . counsel-find-file)
+      ("M-x" . counsel-M-x)
+      ("C-h f" . counsel-describe-function)
+      ("C-h v" . counsel-describe-variable))
+
+    (use-package swiper
+      :bind
+      ("C-s" . swiper-isearch)
+      ("C-r" . swiper-isearch-backward))
+#+end_src
+*** Splash Screen
+#+begin_src emacs-lisp
+(use-package page-break-lines)
+
+(use-package dashboard
+    :config
+    (setq dashboard-center-content t
+          dashboard-set-heading-icons t
+          dashboard-set-file-icons t
+          dashboard-startup-banner 'logo)
+    (add-to-list 'dashboard-items '(project) t)
+    (dashboard-setup-startup-hook))
+
+#+end_src
+* Programming
+** General
+*** Interactive
+#+begin_src emacs-lisp
+    (use-package rainbow-delimiters
+      :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+** Projectile
+    Projectile give emacs the project management features and have version 
+    control intergration as well
+
+#+begin_src emacs-lisp
+    (use-package projectile
+      :config
+      ;; Useful for CMake-based project and use of ccls with C/C++
+      (setq projectile-project-root-files-top-down-recurring
+       (append
+        '("compile_commands.json" ".ccls")
+        projectile-project-root-files-top-down-recurring))
+      (setq projectile-globally-ignored-directories
+       (append
+        '("build" "CMakeFiles" ".ccls-cache")
+        projectile-globally-ignored-directories))
+      (setq projectile-globally-ignored-files
+       (append
+        '("cmake_install.cmake")
+        projectile-globally-ignored-files))
+      :custom
+      (projectile-project-search-path '("~/Projects/" "~/Projects/OSS"))
+      (projectile-enable-caching t)
+      (projectile-require-project-root t)
+      (projectile-sort-order 'access-time)
+      :init
+      (projectile-mode))
+#+end_src
+** Magit
+    Magit is git interface for Emacs which is similar to git tools in many IDEs
+    and text-editors
+
+#+begin_src emacs-lisp
+    (use-package magit)
+#+end_src
+** Linters
+*** Flycheck
+    Flycheck is popular linter interface for emacs that allow external linters
+    to use in emacs! 
+    
+#+begin_src emacs-lisp
+    (use-package flycheck
+      :hook (after-init . global-flycheck-mode)
+      :custom
+      (flycheck-check-syntax-automatically '(save mode-enabled)))
+#+end_src
+** Documenation
+    Eldoc shows arguments for function overloads in echo area
+#+begin_src emacs-lisp
+    (use-package eldoc-mode
+      :ensure nil
+      :hook (after-init . global-eldoc-mode))
+#+end_src
+
+** Debug Server
+*** LSP
+    LSP gives IDE-like features to Emacs and add features : semantic
+    higlighting, auto-completion and others
+
+#+begin_src emacs-lisp
+    (use-package lsp-mode
+      :commands lsp
+      :custom
+      (lsp-auto-guess-root t)
+      (lsp-logo-io t)
+      (lsp-prefer-flymake nil))
+#+end_src
+*** LSP-UI
+    This package give UI to LSP server such as popups and visual indicators.
+#+begin_src emacs-lisp
+    (use-package lsp-ui
+      :hook (lsp-mode . lsp-ui-mode)
+      :custom
+      (lsp-ui-doc-delay 2.0)
+      (lsp-ui-flycheck-enable t)
+      (lsp-ui-peek-always-show t))
+#+end_src
+
+*** Debug Adapter Protocol (DAP)
+    DAP is analogous to LSP.
+#+begin_src emacs-lisp
+    (use-package dap-mode
+      :after lsp-mode
+      :config
+      (dap-mode t)
+      (dap-ui-mode t))
+#+end_src
+
+** Treemacs
+   Treemacs is used for IDE-like display of errors.
+
+#+begin_src emacs-lisp
+    (use-package treemacs
+      :bind (:map global-map
+                  ("C-x t t"  . treemacs)
+                  ("C-x t 1"  . treemacs-select-window))
+      :custom
+      (treemacs-resize-icons 4))
+
+      (use-package lsp-treemacs
+        :init
+        (lsp-treemacs-sync-mode 4))
+        
+      (use-package treemacs-projectile
+        :after treemacs projectile
+        :ensure t)
+
+      (use-package treemacs-magit
+        :after treemacs magit
+        :ensure t)
+
+      (use-package treemacs-icons-dired
+        :after treemacs dired
+        :ensure t
+        :config (treemacs-icons-dired-mode))
+#+end_src
+
+** Code completion
+    There are several code completion backends and frontends! Company and auto-
+    completion are popular.
+
+*** Company
+    Company is popular code completion  package which is used often. It's 
+    a frontend and it's needs a server/backend to function
+
+#+begin_src emacs-lisp
+    (use-package company
+      :hook (after-init . global-company-mode)
+      :custom
+      (company-tooltip-align-annotation t))
+      
+    (use-package company-lsp
+      :after (company lsp-mode)
+      :custom
+      (company-lsp-cache-candidates t))
+#+end_src
+
+* Languages
+** HTML/CSS
+    Emmet auto completion is used for HTML and CSS.
+
+#+begin_src emacs-lisp
+    (use-package emmet-mode
+      :hook ((css-mode php-mode sgml-mode rjsx-mode web-mode) . emmet-mode))
+#+end_src
+
+** JavaScipt / TypeScript
+    The usage of react and variety of standards has made it hard to configure
+
+#+begin_src emacs-lisp
+    (use-package typescript-mode
+      :hook
+      (typescript-mode . lsp)
+      :mode (("\\.ts\\'" . typescript-mode)
+             ("\\.tsx\\'" . typescript-mode)))
+
+    (use-package add-node-modules-path
+      :hook ((web-mode rjsx-mode). add-node-modules-path))
+#+end_src
+
+*** React config
+    Should not bind rjsx with tsx mode
+
+#+begin_src emacs-lisp
+    (use-package rjsx-mode
+      :hook
+      (rjsx-mode . lsp)
+      :mode
+      (("\\.js\\'"   . rjsx-mode)
+       ("\\.jsx\\'"  . rjsx-mode)
+       ("\\.json\\'" . js-mode))
+      :magic ("/\\*\\* @jsx React\\.Dom \\*/" "^import React")
+      :init
+      (setq-default rjsx-basic-offset 2)
+      (setq-default rjsx-global-externs '("module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON")))
+
+    (use-package react-snippets
+      :after yasnippet)
+#+end_src
+
+*** TIDE
+    This config is TypeScript Interactive Developement Environement for Emacs
+    (TIDE)(I don't use TypeScipt yet but will be use when I start learning)
+
+#+begin_src emacs-lisp
+    (use-package tide
+      :after
+      (typescript-mode company flycheck)
+      :hook
+      ((typescript-mode . tide-setup)
+       (typescript-mode . tide-hl-identifier-mode)
+       (before-save . tide-format-before-save))
+      :config
+      (flycheck-add-next-checker 'typescript-tide 'javascript-eslint)
+      (flycheck-add-next-checker 'tsx-tide 'javascript-eslint))
+#+end_src
+
+*** Vue config
+    This for later if I start vue
+
+#+begin_src emacs-lisp
+    (use-package vue-html-mode)
+
+    (use-package vue-mode
+      :mode
+      (("\\.vue'" . vue-mode)))
+#+end_src
+
+** C/C++
+    No install is needed for C/C++ and its available as a core mode.
+
+#+begin_src emacs-lisp
+    (setq c-basic-offset 4)
+    (setq c-default-style
+          '((java-mode . "java")
+            (awk-mode . "awk")
+            (other . "k&r")))
+    (setq c-doc-comment-style
+          '((c-mode . javadoc)
+            (java-mode . javadoc)
+            (pike-mode . autodoc)))
+
+    (use-package c-mode
+      :ensure nil
+      :hook (c-mode . lsp))
+
+    (use-package c++-mode
+      :ensure nil
+      :hook (c++-mode . lsp))
+#+end_src
+
+*** CMake 
+    CMake is popular build tool and used popular C++ oss I contribrute
+
+#+begin_src emacs-lisp
+    (use-package cmake-mode
+      :mode
+      (("CMakeLists\\.txt\\'" . cmake-mode)
+       ("CMakeCache\\.txt\\'" . cmake-mode)
+       ("\\.cmake\\'" . cmake-mode))
+      :custom
+      (cmake-tab-width 4))
+#+end_src 
+
+*** CCLS
+    CCLS has more features support than Clangd, like semantic highlighting...
+
+#+begin_src emacs-lisp
+    (use-package ccls
+      :after lsp-mode
+      :hook ((c-mode c++-mode) . (lambda ()
+                                   (require 'ccls)
+                                   (lsp))))
+#+end_src
