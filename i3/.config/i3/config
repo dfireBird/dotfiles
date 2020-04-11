@@ -43,8 +43,8 @@ exec --no-startup-id dunst
 
 exec --no-startup-id picom -b
 
-exec  wall -i $HOME/Pictures/Wallpapers/SnowyMountain.jpg
-#exec feh --bg-fill $HOME/Pictures/Wallpapers/RicknMorty.png
+exec  wall -R -i $HOME/Pictures/Wallpapers/SnowyMountain.jpg
+exec feh --bg-fill $HOME/Pictures/Wallpapers/SnowyMountain.jpg
 
 # xinput touchpad synaptics
 exec xinput set-prop 11 323 1
