@@ -1,7 +1,62 @@
-
 #+TITLE: An Emacs Configuration
 #+Author: Phoenix181 or dfireBird
 #+Startup: Overview
+* Table of Contents :TOC_3:
+- [[#preface][Preface]]
+- [[#pre-configuration][Pre-Configuration]]
+  - [[#initialization][Initialization]]
+  - [[#garbage-collection][Garbage Collection]]
+- [[#package-setup][Package Setup]]
+  - [[#package-archives][Package Archives]]
+  - [[#package-installers][Package Installers]]
+- [[#variables][Variables]]
+- [[#startup][Startup]]
+  - [[#backup][Backup]]
+  - [[#elcord][Elcord]]
+  - [[#keybindings][Keybindings]]
+    - [[#which-key][Which-key]]
+    - [[#multiple-cursors][Multiple-Cursors]]
+  - [[#appearance][Appearance]]
+    - [[#genreal-gui][Genreal GUI]]
+    - [[#theme][Theme]]
+    - [[#font][Font]]
+    - [[#doom-mode-line][Doom mode line]]
+    - [[#zoom][Zoom]]
+  - [[#interface][Interface]]
+    - [[#completion-frontend][Completion Frontend]]
+    - [[#splash-screen][Splash Screen]]
+  - [[#terminal][Terminal]]
+  - [[#wakatime][Wakatime]]
+- [[#programming][Programming]]
+  - [[#general][General]]
+    - [[#interactive][Interactive]]
+  - [[#projectile][Projectile]]
+  - [[#magit][Magit]]
+  - [[#linters][Linters]]
+    - [[#flycheck][Flycheck]]
+  - [[#documenation][Documenation]]
+  - [[#debug-server][Debug Server]]
+    - [[#lsp][LSP]]
+    - [[#lsp-ui][LSP-UI]]
+    - [[#debug-adapter-protocol-dap][Debug Adapter Protocol (DAP)]]
+  - [[#treemacs][Treemacs]]
+  - [[#code-completion][Code completion]]
+    - [[#company][Company]]
+  - [[#snippets][Snippets]]
+- [[#languages][Languages]]
+  - [[#htmlcss][HTML/CSS]]
+  - [[#javascipt--typescript][JavaScipt / TypeScript]]
+    - [[#react-config][React config]]
+    - [[#tide][TIDE]]
+    - [[#vue-config][Vue config]]
+  - [[#cc][C/C++]]
+    - [[#cmake][CMake]]
+    - [[#ccls][CCLS]]
+- [[#literate-languages][Literate Languages]]
+  - [[#org][Org]]
+    - [[#table-of-contents][Table of Contents]]
+    - [[#bullets][Bullets]]
+
 * Preface
     After sometime in spacemacs (interested in emacs a long time 
     never had chance to come), it's time to write my own configuration!
@@ -19,7 +74,6 @@
 #+begin_src emacs-lisp
    ;; -*- lexical-binding: t -*-
 #+end_src
-
 ** Garbage Collection
     Gargbage Collection is not needed (that's whay they say)
     (maybe needed on old machine - shan)
@@ -80,7 +134,24 @@
       (setq-default byte-compile-warnings nil)
 #+end_src
 
+* Variables
+   Variable for the use in this config
+#+begin_src emacs-lisp
+    (defconst firebird/settings-path (concat user-emacs-directory "settings/settings.el"))
+    (message firebird/settings-path)
+    (defconst firebird/settings-exist? (file-exists-p firebird/settings-path))
+    (when firebird/settings-exist?
+      (load-file firebird/settings-path))
+#+end_src
 * Startup
+** Backup
+    Backups are take hella time to clean and it's so ugly
+#+begin_src emacs-lisp
+    (setq-default backup-inhibited t
+                  auto-save-default nil
+		  create-lockfiles nil
+		  make-backup-files nil)
+#+end_src
 ** Elcord
     Elcord is RPC for discord (I like to showoff)
 
@@ -92,15 +163,26 @@
       (elcord-use-major-mode-as-main-icon t))
 #+end_src
 
-** Which-key
+** Keybindings
+*** Which-key
 #+begin_src emacs-lisp
     (use-package which-key
       :init
       (which-key-mode))
 #+end_src
 
-** Appperance
-*** GUI
+*** Multiple-Cursors
+   Multiple cursors is one of features I used in VSCode now I can use it here
+   too
+#+begin_src emacs-lisp
+    (use-package multiple-cursors
+      :bind
+      ("M-n" . mc/mark-next-like-this)
+      ("M-p" . mc/mark-previous-like-this)
+      ("M-[" . mc/edit-lines))
+#+end_src
+** Appearance
+*** Genreal GUI
     The config to disable menu, tool and scroll bars
 #+begin_src emacs-lisp
     (tool-bar-mode -1)
@@ -127,7 +209,14 @@
 #+begin_src emacs-lisp
     (use-package all-the-icons)
     (set-face-attribute 'default nil 
-                         :font "Jetbrains Mono")
+                         :family "Jetbrains Mono"
+			 :height 105)
+    (set-face-attribute 'mode-line nil
+                         :family "Jetbrains Mono"
+			 :height 100)
+    (set-face-attribute 'mode-line-inactive nil
+                         :family "Jetbrains Mono"
+			 :height 100)
 #+end_src
 
 *** Doom mode line
@@ -178,20 +267,36 @@
 #+end_src
 *** Splash Screen
 #+begin_src emacs-lisp
-(use-package page-break-lines)
+    (use-package page-break-lines)
 
-(use-package dashboard
-    :custom
-    (dashboard-center-content t)
-    (dashboard-set-heading-icons t)
-    (dashboard-set-file-icons t)
-    (dashboard-startup-banner 'logo)
-    :config
-    (setq dashboard-items '((recents  . 5)
-                        (projects . 5)
-                        (agenda . 5)))
-    (dashboard-setup-startup-hook))
-
+    (use-package dashboard
+      :custom
+      (dashboard-center-content t)
+      (dashboard-set-heading-icons t)
+      (dashboard-set-file-icons t)
+      (dashboard-startup-banner 'logo)
+      :config
+      (setq dashboard-items '((projects  . 10)
+                          (recents . 5)
+                          (agenda . 5)))
+      (dashboard-setup-startup-hook))
+#+end_src
+** Terminal
+    Vterm is used for built-in terminal emulator for emacs
+#+begin_src emacs-lisp
+    (use-package vterm
+      :ensure t
+      :commands (vterm))
+#+end_src
+** Wakatime
+    Wakatime is used to monitor my coding activity
+#+begin_src emacs-lisp
+    (use-package wakatime-mode
+      :if (and (executable-find "wakatime") (boundp 'wakatime-api-key))
+      :custom
+      (wakatime-cli-path (executable-find "wakatime"))
+      :init
+      (global-wakatime-mode))
 #+end_src
 * Programming
 ** General
@@ -337,6 +442,14 @@
       (company-lsp-cache-candidates t))
 #+end_src
 
+** Snippets
+    Snippets template provided by YASnippets it make snippet easier
+#+begin_src emacs-lisp
+    (use-package yasnippet
+      :config
+      (use-package yasnippet-snippets)
+      (yas-global-mode 1))
+#+end_src
 * Languages
 ** HTML/CSS
     Emmet auto completion is used for HTML and CSS.
@@ -453,4 +566,33 @@
       :hook ((c-mode c++-mode) . (lambda ()
                                    (require 'ccls)
                                    (lsp))))
+#+end_src
+* Literate Languages
+** Org
+   Org is one of the literate languages (like markdown), I started it using
+   when I started this config 
+#+begin_src emacs-lisp
+    (use-package org
+      :mode 
+      ("\\.\\(org\\|ORG\\)\\'" . org-mode)
+      :custom
+      (org-directory "~/.orgfiles")
+      (org-pretty-entities t))
+#+end_src
+*** Table of Contents
+   toc-org provides toc without exporting it (useful for Github)
+#+begin_src emacs-lisp
+    (use-package toc-org
+      :after (org)
+      :hook
+      (org-mode . toc-org-enable))
+#+end_src
+
+*** Bullets
+    org-bullets provide UTF-8 bullets for heading and others
+#+begin_src emacs-lisp
+    (use-package org-bullets
+      :after (org)
+      :hook
+      (org-mode . org-bullets-mode))
 #+end_src
