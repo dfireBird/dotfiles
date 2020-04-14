@@ -52,6 +52,7 @@
   - [[#cc][C/C++]]
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
+    - [[#cmake-ide][CMake-IDE]]
 - [[#literate-languages][Literate Languages]]
   - [[#org][Org]]
     - [[#table-of-contents][Table of Contents]]
@@ -330,6 +331,11 @@
       (projectile-enable-caching t)
       (projectile-require-project-root t)
       (projectile-sort-order 'access-time)
+      :bind
+      ("C-x p r" . projectile-run-project)
+      ("C-x p f" . projectile-find-file)
+      ("C-x p c" . projectile-compile-project)
+      ("C-x p C-c" . projectile-configure-project)
       :init
       (projectile-mode))
 #+end_src
@@ -566,6 +572,19 @@
       :hook ((c-mode c++-mode) . (lambda ()
                                    (require 'ccls)
                                    (lsp))))
+#+end_src
+*** CMake-IDE
+    CMake IDE is package that is features in CppCon talks! I'm going to try it....
+#+begin_src emacs-lisp
+    (use-package irony
+      :hook
+      (c++-mode . irony-mode)
+      (c-mode   . irony-mode)
+      (irony-mode . irony-cdb-autosetup-compile-options))
+    (use-package rtags)
+    (use-package cmake-ide
+      :config
+      (cmake-ide-setup))
 #+end_src
 * Literate Languages
 ** Org
