@@ -52,7 +52,6 @@
   - [[#cc][C/C++]]
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
-    - [[#cmake-ide][CMake-IDE]]
 - [[#literate-languages][Literate Languages]]
   - [[#org][Org]]
     - [[#table-of-contents][Table of Contents]]
@@ -221,6 +220,12 @@
 #+end_src
 
 *** Doom mode line
+    Needed for modeline features
+#+begin_src emacs-lisp
+    (line-number-mode t)
+    (column-number-mode t)
+    (display-battery-mode t)
+#+end_src
     Doom mode line is custome mode line with several unqiue features
 #+begin_src emacs-lisp
     (use-package doom-modeline
@@ -230,7 +235,10 @@
       (doom-modeline-icon t)
       (doom-modeline-major-mode-icon t)
       (doom-modeline-buffer-encoding nil)
-      (doom-modeline-buffer-file-name-style 'relative-from-project))
+      (doom-modeline-buffer-file-name-style 'relative-from-project)
+      (doom-modeline--battery-status t)
+      (doom-modeline-github t)
+      (doom-modeline-lsp t))
 #+end_src
 *** Zoom
     Zoom manages window size
@@ -333,6 +341,7 @@
       (projectile-sort-order 'access-time)
       :bind
       ("C-x p r" . projectile-run-project)
+      ([f5] . projectile-run-project)
       ("C-x p f" . projectile-find-file)
       ("C-x p c" . projectile-compile-project)
       ("C-x p C-c" . projectile-configure-project)
@@ -565,26 +574,14 @@
 
 *** CCLS
     CCLS has more features support than Clangd, like semantic highlighting...
-
 #+begin_src emacs-lisp
     (use-package ccls
       :after lsp-mode
+      :config
+      (setq ccls-initialization-options '(:index (:threads 1)))
       :hook ((c-mode c++-mode) . (lambda ()
                                    (require 'ccls)
                                    (lsp))))
-#+end_src
-*** CMake-IDE
-    CMake IDE is package that is features in CppCon talks! I'm going to try it....
-#+begin_src emacs-lisp
-    (use-package irony
-      :hook
-      (c++-mode . irony-mode)
-      (c-mode   . irony-mode)
-      (irony-mode . irony-cdb-autosetup-compile-options))
-    (use-package rtags)
-    (use-package cmake-ide
-      :config
-      (cmake-ide-setup))
 #+end_src
 * Literate Languages
 ** Org
