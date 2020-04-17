@@ -31,6 +31,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- "light-locker-command -l"
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 
 # Launch Polybar
+exec  wall -R -i $HOME/Pictures/Wallpapers/SnowyMountain.jpg
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec --no-startup-id nm-applet
@@ -43,7 +44,6 @@ exec --no-startup-id dunst
 
 exec --no-startup-id picom -b
 
-exec  wall -R -i $HOME/Pictures/Wallpapers/SnowyMountain.jpg
 exec feh --bg-fill $HOME/Pictures/Wallpapers/SnowyMountain.jpg
 
 # xinput touchpad synaptics
