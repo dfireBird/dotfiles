@@ -393,6 +393,8 @@
 #+begin_src emacs-lisp
     (use-package lsp-mode
       :commands lsp
+      :config
+      (setq lsp-prefer-capf t)
       :custom
       (lsp-auto-guess-root t)
       (lsp-logo-io t)
@@ -450,8 +452,7 @@
 
 ** Code completion
     There are several code completion backends and frontends! Company and auto-
-    completion are popular.
-
+    complete are popular.
 *** Company
     Company is popular code completion  package which is used often. It's 
     a frontend and it's needs a server/backend to function
@@ -459,13 +460,11 @@
 #+begin_src emacs-lisp
     (use-package company
       :hook (after-init . global-company-mode)
+      :bind
+      ("C-x c c" . company-complete)
       :custom
-      (company-tooltip-align-annotation t))
-      
-    (use-package company-lsp
-      :after (company lsp-mode)
-      :custom
-      (company-lsp-cache-candidates t))
+      (company-tooltip-align-annotation t)
+      (company-minimum-prefix-length 0))
 #+end_src
 
 ** Snippets
