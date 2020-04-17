@@ -11,7 +11,7 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (wakatime-mode treemacs-icons-dired treemacs-magit treemacs-projectile which-key vue-mode use-package tide rjsx-mode react-snippets magit lsp-ui emmet-mode elcord doom-modeline dap-mode company-lsp cmake-mode ccls add-node-modules-path)))
+    (xterm-color wakatime-mode treemacs-icons-dired treemacs-magit treemacs-projectile which-key vue-mode use-package tide rjsx-mode react-snippets magit lsp-ui emmet-mode elcord doom-modeline dap-mode company-lsp cmake-mode ccls add-node-modules-path)))
  '(safe-local-variable-values
    (quote
     ((cmake-ide-build-dir . "./build")
