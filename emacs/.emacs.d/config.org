@@ -461,8 +461,9 @@
     (use-package company
       :hook (after-init . global-company-mode)
       :bind
-      ("C-x c c" . company-complete)
+      ("C-;" . company-complete)
       :custom
+      (custom-idle-delay 0)
       (company-tooltip-align-annotation t)
       (company-minimum-prefix-length 0))
 #+end_src
