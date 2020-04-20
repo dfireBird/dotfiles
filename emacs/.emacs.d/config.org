@@ -204,6 +204,9 @@
       (doom-themes-treemacs-config)
       
       (doom-themes-org-config))
+
+      (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+      (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 #+end_src
 
 *** Font
@@ -226,6 +229,7 @@
     (line-number-mode t)
     (column-number-mode t)
     (display-battery-mode t)
+    (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 #+end_src
     Doom mode line is custome mode line with several unqiue features
 #+begin_src emacs-lisp
