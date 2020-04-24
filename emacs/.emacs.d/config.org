@@ -316,14 +316,11 @@
 ** General
 *** Interactive
 #+begin_src emacs-lisp
+    (electric-pair-mode)
+    (show-paren-mode)
+
     (use-package rainbow-delimiters
       :hook (prog-mode . rainbow-delimiters-mode))
-
-    (use-package smartparens
-      :hook 
-      (prog-mode . smartparens-mode)
-      :config
-      (require 'smartparens-config))
 
     (use-package paren
       :config
@@ -355,13 +352,16 @@
       (projectile-require-project-root t)
       (projectile-sort-order 'access-time)
       :bind
-      ("C-x p r" . projectile-run-project)
-      ([f5] . projectile-run-project)
-      ("C-x p f" . projectile-find-file)
-      ("C-x p c" . projectile-compile-project)
-      ("C-x p C-c" . projectile-configure-project)
+      ;("C-x p r" . projectile-run-project)
+      ;([f5] . projectile-run-project)
+      ;("C-x p f" . projectile-find-file)
+      ;("C-x p c" . projectile-compile-project)
+      ;("C-x p C-c" . projectile-configure-project)
       :init
       (projectile-mode))
+      
+      (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+      (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 #+end_src
 ** Magit
     Magit is git interface for Emacs which is similar to git tools in many IDEs
@@ -602,6 +602,8 @@
     I'm determined to learn rust so time for config
 #+begin_src emacs-lisp
     (use-package rustic
+      :config
+      (setq rustic-ansi-faces ansi-color-names-vector)
       :custom
       (rustic-format-on-save t)
       (rustic-indent-method-chain t))

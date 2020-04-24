@@ -25,7 +25,7 @@ font pango:Roboto Regular 11
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- "light-locker-command -l" --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- "betterlockscreen -l blur" --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -108,6 +108,13 @@ bindsym --release Print exec i3-scrot -d
 bindsym --release Shift+Print exec i3-scrot -s
 
 bindsym --release Ctrl+Shift+Print exec i3-scrot -w
+
+# Scratchpad Bindings
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+
+#bindsym $mod+minus scratchpad show
+#bindsym $mod+Shift+minus move scratchpad
 
 # change focus
 bindsym $mod+j focus left
@@ -218,7 +225,7 @@ bindsym $mod+Shift+w exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id loginctl lock-session, mode "default"
+    bindsym l exec --no-startup-id betterlockscreen -l blur, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"

@@ -110,7 +110,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-alias mv="mv -i"
 alias serialno="sudo dmidecode -s system-serial-number"
 alias py="python3"
 alias activate="source ./bin/activate"
