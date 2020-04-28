@@ -290,7 +290,7 @@
       (dashboard-set-file-icons t)
       (dashboard-startup-banner 'logo)
       :config
-      (setq dashboard-items '((projects  . 10)
+      (setq dashboard-items '((projects  . 5)
                           (recents . 5)
                           (agenda . 5)))
       (dashboard-setup-startup-hook))
