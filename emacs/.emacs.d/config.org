@@ -211,7 +211,18 @@
 
 *** Font
 #+begin_src emacs-lisp
-    (use-package all-the-icons)
+    (defun aorst/font-installed-p (font-name)
+      "Check if font with FONT-NAME is available."
+      (if (find-font (font-spec :name font-name))
+          t
+	nil))
+    (use-package all-the-icons
+      :config
+      (when (and (not (aorst/font-installed-p "all-the-icons"))
+                 (window-system))
+        (all-the-icons-install-fonts t)))
+
+
     (set-face-attribute 'default nil 
                          :family "Jetbrains Mono"
 			 :height 105)
@@ -300,7 +311,9 @@
 #+begin_src emacs-lisp
     (use-package vterm
       :ensure t
-      :commands (vterm))
+      :commands (vterm)
+      :bind
+      ("C-c t" . vterm))
 #+end_src
 ** Wakatime
     Wakatime is used to monitor my coding activity
