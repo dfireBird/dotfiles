@@ -16,6 +16,7 @@
   - [[#keybindings][Keybindings]]
     - [[#which-key][Which-key]]
     - [[#multiple-cursors][Multiple-Cursors]]
+    - [[#ace-window][Ace Window]]
   - [[#appearance][Appearance]]
     - [[#genreal-gui][Genreal GUI]]
     - [[#theme][Theme]]
@@ -181,6 +182,12 @@
       ("M-n" . mc/mark-next-like-this)
       ("M-p" . mc/mark-previous-like-this)
       ("M-[" . mc/edit-lines))
+#+end_src
+*** Ace Window
+#+begin_src emacs-lisp
+    (use-package ace-window
+      :bind
+      ("M-o" . ace-window))
 #+end_src
 ** Appearance
 *** Genreal GUI
@@ -381,7 +388,9 @@
     and text-editors
 
 #+begin_src emacs-lisp
-    (use-package magit)
+    (use-package magit
+      :bind
+      ("C-x g" . magit))
 #+end_src
 ** Linters
 *** Flycheck
