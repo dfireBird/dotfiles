@@ -87,7 +87,6 @@ assign [class="discord"] $ws1
 assign [class="google-chrome"] $ws2
 assign [class="Emacs"] $ws3
 assign [class="VSCodium"] $ws3
-assign [class="Alacritty"] $ws4
 assign [class="mcpelauncher-client"] $ws5
 assign [class="Spotify"] $ws9
 

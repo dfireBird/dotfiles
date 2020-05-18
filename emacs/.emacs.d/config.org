@@ -179,9 +179,12 @@
 #+begin_src emacs-lisp
     (use-package multiple-cursors
       :bind
-      ("M-n" . mc/mark-next-like-this)
-      ("M-p" . mc/mark-previous-like-this)
-      ("M-[" . mc/edit-lines))
+      ("C->" . mc/mark-next-like-this)
+      ("C-<" . mc/mark-previous-like-this)
+      ("C-s-e" . mc/edit-lines))
+
+    (global-unset-key (kbd "M-<down-mouse-1>"))
+    (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 #+end_src
 *** Ace Window
 #+begin_src emacs-lisp
@@ -292,6 +295,8 @@
       ("C-h f" . counsel-describe-function)
       ("C-h v" . counsel-describe-variable))
 
+    (use-package counsel-projectile)
+
     (use-package swiper
       :bind
       ("C-s" . swiper-isearch)
@@ -345,6 +350,14 @@
     (use-package paren
       :config
       (show-paren-mode t))
+
+    (use-package smartparens
+      :hook
+      (prog-mode . smartparens-mode)
+      :custom
+      (sp-escape-quotes-after-insert nil)
+      :config
+      (require 'smartparens-config))
 #+end_src
 ** Projectile
     Projectile give emacs the project management features and have version 
@@ -372,16 +385,14 @@
       (projectile-require-project-root t)
       (projectile-sort-order 'access-time)
       :bind
-      ;("C-x p r" . projectile-run-project)
-      ;([f5] . projectile-run-project)
-      ;("C-x p f" . projectile-find-file)
-      ;("C-x p c" . projectile-compile-project)
-      ;("C-x p C-c" . projectile-configure-project)
+      ([f5] . projectile-run-project)
       :init
       (projectile-mode))
+
+    (use-package projectile-ripgrep)
       
-      (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-      (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 #+end_src
 ** Magit
     Magit is git interface for Emacs which is similar to git tools in many IDEs
@@ -391,6 +402,9 @@
     (use-package magit
       :bind
       ("C-x g" . magit))
+
+    (use-package forge
+      :after magit)
 #+end_src
 ** Linters
 *** Flycheck
@@ -493,7 +507,11 @@
       (company-tooltip-align-annotation t)
       (company-minimum-prefix-length 0))
 #+end_src
-
+**** Company Box
+#+begin_src emacs-lisp
+    (use-package company-box
+      :hook (company-mode . company-box-mode))
+#+end_src
 ** Snippets
     Snippets template provided by YASnippets it make snippet easier
 #+begin_src emacs-lisp
@@ -594,6 +612,8 @@
     (use-package c++-mode
       :ensure nil
       :hook (c++-mode . lsp))
+
+    (setq gdb-many-windows t)
 #+end_src
 
 *** CMake 
