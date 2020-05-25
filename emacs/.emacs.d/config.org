@@ -28,6 +28,7 @@
     - [[#splash-screen][Splash Screen]]
   - [[#terminal][Terminal]]
   - [[#wakatime][Wakatime]]
+  - [[#spell-check][Spell Check]]
 - [[#programming][Programming]]
   - [[#general][General]]
     - [[#interactive][Interactive]]
@@ -265,6 +266,12 @@
       (doom-modeline--battery-status t)
       (doom-modeline-github t)
       (doom-modeline-lsp t))
+
+    (use-package nyan-mode
+      :init (nyan-mode t)
+      :config
+      (setq nyan-animate-nyancat t)
+      (setq nyan-wavy-trail t))
 #+end_src
 *** Zoom
     Zoom manages window size
@@ -336,6 +343,14 @@
       (wakatime-cli-path (executable-find "wakatime"))
       :init
       (global-wakatime-mode))
+#+end_src
+** Spell Check
+   I'm using flycheck here for spell check.
+#+begin_src emacs-lisp
+(dolist (hook '(text-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
+    (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode -1))))
 #+end_src
 * Programming
 ** General
@@ -414,6 +429,11 @@
 #+begin_src emacs-lisp
     (use-package flycheck
       :hook (after-init . global-flycheck-mode)
+      :custom-face
+      (flycheck-info ((t (:underline (:style line)))))
+      (flycheck-warning ((t (:underline (:style line)))))
+      (flycheck-error ((t (:underline (:style line)))))
+
       :custom
       (flycheck-check-syntax-automatically '(save mode-enabled)))
 #+end_src
@@ -648,7 +668,8 @@
       (setq rustic-ansi-faces ansi-color-names-vector)
       :custom
       (rustic-format-on-save t)
-      (rustic-indent-method-chain t))
+      (rustic-indent-method-chain t)
+      (rustic-lsp-server 'rust-analyzer))
 #+end_src
 * Literate Languages
 ** Org
@@ -679,3 +700,4 @@
       :hook
       (org-mode . org-bullets-mode))
 #+end_src
+

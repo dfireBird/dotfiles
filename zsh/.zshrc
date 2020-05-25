@@ -112,7 +112,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias serialno="sudo dmidecode -s system-serial-number"
 alias py="python3"
-alias activate="source ./bin/activate"
+alias activate="source ./.venv/bin/activate"
 alias mysqlr="mysql -u root -p"
 alias tl="java -jar ~/Games/Tlauncher/TLauncher-2.68.jar"
 alias code="codium"
