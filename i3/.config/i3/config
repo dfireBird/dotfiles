@@ -42,7 +42,7 @@ exec --no-startup-id dunst
 exec --no-startup-id picom -b
 
 # xinput touchpad synaptics
-exec xinput set-prop 11 323 1
+exec xinput set-prop 11 325 1
 exec xinput set-prop 11 307 1
 
 # Use pactl to adjust volume in PulseAudio.
