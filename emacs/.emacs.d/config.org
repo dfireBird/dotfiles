@@ -7,8 +7,7 @@
   - [[#initialization][Initialization]]
   - [[#garbage-collection][Garbage Collection]]
 - [[#package-setup][Package Setup]]
-  - [[#package-archives][Package Archives]]
-  - [[#package-installers][Package Installers]]
+  - [[#package-installer][Package Installer]]
 - [[#variables][Variables]]
 - [[#startup][Startup]]
   - [[#backup][Backup]]
@@ -105,38 +104,31 @@
       (add-hook 'after-init-hook 'srs|revert-gc))
 #+end_src
 * Package Setup
-** Package Archives
-    Archives to use for third-party packages useful to get many pacakges
 #+begin_src emacs-lisp
-    (require 'package)
-    (setq package-enable-at-startup nil)
-    
-    (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")))
-
-    (package-initialize)
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 #+end_src
 
-** Package Installers
+** Package Installer
     A tool to automatically download the package from sources and loads it
     whenever the packages is in need
 
 #+begin_src emacs-lisp
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
-    
-    (eval-when-compile
-      (require 'use-package))
-
-    (use-package use-package
-      :config
-      (setq-default use-package-always-demand nil
-                    use-package-always-ensure t
-                    use-package-verbose t))
-
-      (setq-default byte-compile-warnings nil)
+  (setq straight-use-package-by-default t)
+  (setq use-package-always-demand nil
+        use-package-verbose t
+	byte-compile-warnings nil)
+  (straight-use-package 'use-package)
 #+end_src
 
 * Variables
@@ -275,7 +267,6 @@
     Doom mode line is custome mode line with several unqiue features
 #+begin_src emacs-lisp
     (use-package doom-modeline
-      :ensure t
       :init (doom-modeline-mode t)
       :custom
       (doom-modeline-icon t)
@@ -348,7 +339,6 @@
     Vterm is used for built-in terminal emulator for emacs
 #+begin_src emacs-lisp
     (use-package vterm
-      :ensure t
       :commands (vterm)
       :bind
       ("C-c t" . vterm))
@@ -460,7 +450,7 @@
     Eldoc shows arguments for function overloads in echo area
 #+begin_src emacs-lisp
     (use-package eldoc
-      :ensure nil
+      :straight nil
       :hook (after-init . global-eldoc-mode))
 #+end_src
 
@@ -516,16 +506,13 @@
         (lsp-treemacs-sync-mode 4))
         
       (use-package treemacs-projectile
-        :after treemacs projectile
-        :ensure t)
+        :after treemacs projectile)
 
       (use-package treemacs-magit
-        :after treemacs magit
-        :ensure t)
+        :after treemacs magit)
 
       (use-package treemacs-icons-dired
         :after treemacs dired
-        :ensure t
         :config (treemacs-icons-dired-mode))
 #+end_src
 
@@ -645,11 +632,11 @@
             (pike-mode . autodoc)))
 
     (use-package c-mode
-      :ensure nil
+      :straight nil
       :hook (c-mode . lsp))
 
-    (use-package c++-mode
-      :ensure nil
+    (use-pacakge c++-mode
+      :straight nil
       :hook (c++-mode . lsp))
 
     (setq gdb-many-windows t)
@@ -699,7 +686,6 @@
       :mode 
       ("\\.\\(org\\|ORG\\)\\'" . org-mode)
       :custom
-      (org-directory "~/.orgfiles")
       (org-pretty-entities t))
 #+end_src
 *** Table of Contents
