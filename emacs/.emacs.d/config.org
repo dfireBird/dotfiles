@@ -59,6 +59,8 @@
   - [[#org][Org]]
     - [[#table-of-contents][Table of Contents]]
     - [[#bullets][Bullets]]
+- [[#fun][Fun]]
+  - [[#kana][Kana]]
 
 * Preface
     After sometime in spacemacs (interested in emacs a long time 
@@ -254,6 +256,12 @@
     (set-face-attribute 'mode-line-inactive nil
                          :family "Jetbrains Mono"
 			 :height 100)
+
+    (use-package emojify
+      :init
+      (global-emojify-mode)
+      :bind
+      ("C-x C-i" . emojify-insert-emoji))
 #+end_src
 
 *** Doom mode line
