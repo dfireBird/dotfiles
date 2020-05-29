@@ -712,3 +712,10 @@
       (org-mode . org-bullets-mode))
 #+end_src
 
+* Fun
+** Kana
+    Kana is helper to learn Japanese.
+#+begin_src emacs-lisp
+    (use-package kana
+      :straight (kana :type git :host github :repo "chenyanming/kana"))
+#+end_src
