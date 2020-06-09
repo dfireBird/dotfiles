@@ -1,8 +1,10 @@
 (cat ~/.cache/wal/sequences &)
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export DENO_INSTALL="/home/firebird/.deno"
+export PATH="$PATH:$DENO_INSTALL/bin"
+export PATH=$HOME/bin:$PATH
 
 ## I'm not using android atm so I disabled it
 
@@ -79,7 +81,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-z zsh-autosuggestions)
+plugins=(git zsh-z zsh-autosuggestions thefuck)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -117,6 +119,7 @@ alias mysqlr="mysql -u root -p"
 alias tl="java -jar ~/Games/Tlauncher/TLauncher-2.68.jar"
 alias code="codium"
 alias minecraft="~/Games/minecraft_start.sh"
+alias doom="emacs --with-profile doom"
 
 extract ()
 {
@@ -153,3 +156,5 @@ function vterm_printf() {
         printf "\e]%s\e\\" "$1"
     fi
 }
+
+eval $(thefuck --alias)
