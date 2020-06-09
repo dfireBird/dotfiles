@@ -593,8 +593,18 @@
     Emmet auto completion is used for HTML and CSS.
 
 #+begin_src emacs-lisp
-    (use-package emmet-mode
-      :hook ((css-mode php-mode sgml-mode rjsx-mode web-mode) . emmet-mode))
+  (use-package emmet-mode
+    :hook ((css-mode php-mode sgml-mode rjsx-mode web-mode) . emmet-mode))
+  (use-package web-mode
+    :mode
+    (("\\.html?\\'"     .    web-mode)
+     ("\\.phtml\\'"     .    web-mode)
+     ("\\.tpl\\.php\\'" .    web-mode)
+     ("\\.[agj]sp\\'"   .    web-mode)
+     ("\\.as[cp]x\\'"   .    web-mode)
+     ("\\.erb\\'"       .    web-mode)
+     ("\\.mustache\\'"  .    web-mode)
+     ("\\.djhtml\\'"    .    web-mode)))
 #+end_src
 
 ** JavaScipt / TypeScript
