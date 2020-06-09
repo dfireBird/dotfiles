@@ -40,6 +40,7 @@
     - [[#lsp][LSP]]
     - [[#lsp-ui][LSP-UI]]
     - [[#debug-adapter-protocol-dap][Debug Adapter Protocol (DAP)]]
+    - [[#indium][Indium]]
   - [[#treemacs][Treemacs]]
   - [[#code-completion][Code completion]]
     - [[#company][Company]]
@@ -515,8 +516,19 @@
       :config
       (dap-mode t)
       (dap-ui-mode t))
+
+    (use-package dap-chrome
+      :straight nil)
+
+    (use-package dap-node
+      :straight nil)
+
 #+end_src
 
+*** Indium
+#+begin_src emacs-lisp
+  (use-package indium)
+#+end_src
 ** Treemacs
    Treemacs is used for IDE-like display of errors.
 
