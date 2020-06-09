@@ -55,6 +55,7 @@
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
   - [[#rust][Rust]]
+  - [[#python][Python]]
 - [[#literate-languages][Literate Languages]]
   - [[#org][Org]]
     - [[#table-of-contents][Table of Contents]]
@@ -717,6 +718,18 @@
       (rustic-format-on-save t)
       (rustic-indent-method-chain t)
       (rustic-lsp-server 'rust-analyzer))
+#+end_src
+** Python
+Install Pyls
+#+begin_src emacs-lisp
+  (use-package python
+    :if (executable-find "pyls")
+    :straight nil
+    :hook (python-mode . lsp)
+    :custom
+    (python-indent 4)
+    (python-fill-docstring-style 'pep-257)
+    (python-indent-guess-indent-offset nil))
 #+end_src
 * Literate Languages
 ** Org
