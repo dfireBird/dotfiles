@@ -61,6 +61,7 @@
     - [[#bullets][Bullets]]
 - [[#fun][Fun]]
   - [[#kana][Kana]]
+  - [[#game][Game]]
 
 * Preface
     After sometime in spacemacs (interested in emacs a long time 
@@ -751,4 +752,8 @@
 #+begin_src emacs-lisp
     (use-package kana
       :straight (kana :type git :host github :repo "chenyanming/kana"))
+#+end_src
+** Game
+#+begin_src emacs-lisp
+(use-package 2048-game)
 #+end_src
