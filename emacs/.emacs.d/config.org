@@ -153,11 +153,38 @@
     Elcord is RPC for discord (I like to showoff)
 
 #+begin_src emacs-lisp
-    (use-package elcord
-      :init
-      (elcord-mode)
-      :custom
-      (elcord-use-major-mode-as-main-icon t))
+  (use-package elcord
+    :init
+    (elcord-mode)
+    :custom
+    (elcord-client-id "714056771391717468")
+    (elcord-use-major-mode-as-main-icon t))
+
+  (setq elcord-mode-icon-alist '((c-mode           .  "c-mode_icon")
+				 (cpp-mode         .  "cpp-mode_icon")
+				 (csharp-mode      .  "csharp-mode_icon")
+				 (css-mode         .  "css-mode_icon")
+				 (emacs            .  "emacs_icon")
+				 (go-mode          .  "go-mode_icon")
+				 (haskell-mode     .  "haskell-mode_icon")
+				 (html-mode        .  "html-mode_icon")
+				 (web-mode         .  "html-mode_icon")
+				 (java-mode        .  "java-mode_icon")
+				 (js-mode          .  "javascript-mode_icon")
+				 (kotlin-mode      .  "kotlin-mode_icon")
+				 (lua-mode         .  "lua-mode_icon")
+				 (magit-mode       .  "magit-mode_icon")
+				 (markdown-mode    .  "markdown-mode_icon")
+				 (nim-mode         .  "nim-mode_icon")
+				 (org-mode         .  "org-mode_icon")
+				 (php-mode         .  "php-mode_icon")
+				 (python-mode      .  "python-mode_icon")
+				 (r-mode           .  "r-mode_icon")
+				 (ruby-mode        .  "ruby-mode_icon")
+				 (rust-mode        .  "rust-mode_icon")
+				 (rustic-mode      .  "rust-mode_icon")
+				 (swift-mode       .  "swift-mode_icon")
+				 (typescript-mode  .  "typescript-mode_icon")))
 #+end_src
 
 ** Keybindings
