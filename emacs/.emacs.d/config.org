@@ -745,6 +745,8 @@ Install Pyls
    Org is one of the literate languages (like markdown), I started it using
    when I started this config 
 #+begin_src emacs-lisp
+    (straight-override-recipe
+       '(org :type git :host github :repo "emacsmirror/org" :no-build t))
     (use-package org
       :mode 
       ("\\.\\(org\\|ORG\\)\\'" . org-mode)

@@ -9,7 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(elcord-client-id "714056771391717468")
  '(elcord-use-major-mode-as-main-icon t)
- '(org-agenda-files nil)
+ '(org-agenda-files '("~/Projects/agenda.org"))
  '(package-selected-packages
    '(2048-game typit forge xterm-color wakatime-mode treemacs-icons-dired treemacs-magit treemacs-projectile which-key vue-mode use-package rjsx-mode react-snippets magit emmet-mode elcord doom-modeline company-lsp cmake-mode add-node-modules-path))
  '(safe-local-variable-values
