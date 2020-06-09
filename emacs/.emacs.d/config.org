@@ -310,7 +310,9 @@
       :init (nyan-mode t)
       :config
       (setq nyan-animate-nyancat t)
-      (setq nyan-wavy-trail t))
+      (setq nyan-wavy-trail t)
+      (setq nyan-bar-length 25)
+      (nyan-start-animation))
 #+end_src
 *** Zoom
     Zoom manages window size
@@ -360,8 +362,7 @@
       (dashboard-startup-banner 'logo)
       :config
       (setq dashboard-items '((projects  . 5)
-                          (recents . 5)
-                          (agenda . 5)))
+                          (recents . 5)))
       (dashboard-setup-startup-hook))
 #+end_src
 ** Terminal
@@ -383,12 +384,12 @@
       (global-wakatime-mode))
 #+end_src
 ** Spell Check
-   I'm using flycheck here for spell check.
+   I'm using flyspell here for spell check.
 #+begin_src emacs-lisp
-(dolist (hook '(text-mode-hook))
-      (add-hook hook (lambda () (flyspell-mode 1))))
-    (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-      (add-hook hook (lambda () (flyspell-mode -1))))
+  ;; (dolist (hook '(text-mode-hook))
+  ;;   (add-hook hook (lambda () (flyspell-mode 1))))
+  ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  ;;   (add-hook hook (lambda () (flyspell-mode -1))))
 #+end_src
 * Programming
 ** General
