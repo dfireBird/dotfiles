@@ -57,3 +57,14 @@
   :config
   (setq elcord-use-major-mode-as-main-icon t)
   :init (elcord-mode))
+
+(use-package! omnisharp
+  :hook ((csharp-mode . omnisharp-mode)
+         (csharp-mode . company-mode)
+         (csharp-mode . flycheck-mode)))
+
+(use-package! pkgbuild-mode
+  :config
+  (autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
+  (setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode))
+                               auto-mode-alist)))

@@ -47,3 +47,7 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! elcord)
+
+(package! omnisharp)
+
+(package! pkgbuild-mode)
