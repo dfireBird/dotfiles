@@ -751,7 +751,31 @@ Install Pyls
       :mode 
       ("\\.\\(org\\|ORG\\)\\'" . org-mode)
       :custom
-      (org-pretty-entities t))
+      (org-pretty-entities t)
+      :bind (C-c a . org-agenda))
+
+  (defun dfirebird/org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+
+PRIORITY maybe one of the characters ?A, ?B, or ?C."
+  (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+        (pri-value (* 1000 (- org-lowest-priority priority)))
+	(pri-current (org-get-priority (thing-at-point 'line t))))
+    (if (= pri-value pri-current)
+        subtree-end
+      nil)))
+
+  (setq org-agenda-custom-commands
+	 '(("c" "Simple agenda view"
+	    ((tags "PRIORITY=\"A\""
+	           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+		    (org-agenda-overriding-header "High Priority Unfinished tasks: ")))
+	     (agenda ""((org-agenda-ndays)))
+	     (alltodo ""
+	              ((org-agenda-skip-function
+		        '(or (dfirebird/org-skip-subtree-if-priority ?A)
+			     (org-agenda-skip-if nil '(scheduled deadline))))))))))
+
 #+end_src
 *** Table of Contents
    toc-org provides toc without exporting it (useful for Github)
