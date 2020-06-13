@@ -24,8 +24,8 @@ exec --no-startup-id dunst
 exec --no-startup-id picom -b
 
 # touchpad config
-exec xinput set-prop 11 325 1
-exec xinput set-prop 11 307 1
+exec xinput set-prop 11 330 1
+exec xinput set-prop 11 312 1
 
 # Keybinding for sound adjusment
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -62,7 +62,7 @@ hide_edge_borders vertical
 
 for_window [title="Discord Updater"] border none 0
 for_window [class="Alacritty"] layout default, border none 0
-for_window [class="Pcmanfm"] floating enable boarder normal
+for_window [class="Pcmanfm"] floating enable border normal
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
