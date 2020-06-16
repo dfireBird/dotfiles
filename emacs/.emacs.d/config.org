@@ -365,6 +365,12 @@
 *** Splash Screen
 #+begin_src emacs-lisp
     (use-package page-break-lines)
+    (use-package recentf
+      :straight nil
+      :config
+      (setq recentf-exclude '("languages.org"
+                             "tech.org"
+			     "birdtorrent.org")))
 
     (use-package dashboard
       :custom
@@ -374,7 +380,8 @@
       (dashboard-startup-banner 'logo)
       :config
       (setq dashboard-items '((projects  . 5)
-                          (recents . 5)))
+                              (recents . 5)
+			      (agenda . 5)))
       (dashboard-setup-startup-hook))
 #+end_src
 ** Terminal
