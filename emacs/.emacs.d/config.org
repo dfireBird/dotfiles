@@ -1,5 +1,5 @@
 #+TITLE: An Emacs Configuration
-#+Author: Phoenix181 or dfireBird
+#+Author: dfireBird
 #+Startup: Overview
 * Table of Contents :TOC_3:
 - [[#preface][Preface]]
@@ -767,7 +767,7 @@ Install Pyls
       ("\\.\\(org\\|ORG\\)\\'" . org-mode)
       :custom
       (org-pretty-entities t)
-      :bind (C-c a . org-agenda))
+      :bind ("C-c a" . org-agenda))
 
   (defun dfirebird/org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
@@ -781,16 +781,15 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
       nil)))
 
   (setq org-agenda-custom-commands
-	 '(("c" "Simple agenda view"
-	    ((tags "PRIORITY=\"A\""
-	           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-		    (org-agenda-overriding-header "High Priority Unfinished tasks: ")))
-	     (agenda ""((org-agenda-ndays)))
-	     (alltodo ""
-	              ((org-agenda-skip-function
-		        '(or (dfirebird/org-skip-subtree-if-priority ?A)
-			     (org-agenda-skip-if nil '(scheduled deadline))))))))))
-
+        '(("d" "Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (dfirebird/org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks t)))))
 #+end_src
 *** Table of Contents
    toc-org provides toc without exporting it (useful for Github)
