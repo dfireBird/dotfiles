@@ -57,6 +57,7 @@
     - [[#ccls][CCLS]]
   - [[#rust][Rust]]
   - [[#python][Python]]
+  - [[#gdscript][GdScript]]
 - [[#literate-languages][Literate Languages]]
   - [[#org][Org]]
     - [[#table-of-contents][Table of Contents]]
@@ -749,6 +750,10 @@ Install Pyls
     (python-indent 4)
     (python-fill-docstring-style 'pep-257)
     (python-indent-guess-indent-offset nil))
+#+end_src
+** GdScript
+#+begin_src emacs-lisp
+  (use-package gdscript-mode)
 #+end_src
 * Literate Languages
 ** Org
