@@ -22,6 +22,7 @@
     - [[#font][Font]]
     - [[#doom-mode-line][Doom mode line]]
     - [[#zoom][Zoom]]
+    - [[#diff-hl][Diff-hl]]
   - [[#interface][Interface]]
     - [[#completion-frontend][Completion Frontend]]
     - [[#splash-screen][Splash Screen]]
@@ -323,6 +324,15 @@
   ("C-x +" . zoom)
   :custom
   (zoom-mode t))
+#+end_src
+*** Diff-hl
+#+begin_src emacs-lisp
+  (use-package diff-hl
+    :hook
+    ((magit-pre-refresh  . diff-hl-magit-pre-refresh)
+     (magit-post-refresh . diff-hl-magit-post-refresh))
+    :config
+    (global-diff-hl-mode))
 #+end_src
 ** Interface
 *** Completion Frontend
