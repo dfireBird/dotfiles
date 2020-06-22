@@ -350,6 +350,8 @@
       :config
       (ivy-mode))
 
+    (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+
     (use-package counsel
       :bind
       ("C-x C-f" . counsel-find-file)
@@ -426,6 +428,13 @@
       :config
       (show-paren-mode t))
 
+    (use-package hs-minor-mode
+      :straight nil
+      :hook
+      (prog-mode . hs-minor-mode)
+      :bind
+      ("<C-tab>" . hs-toggle-hiding))
+
     (use-package smartparens
       :hook
       (prog-mode . smartparens-mode)
@@ -433,6 +442,10 @@
       (sp-escape-quotes-after-insert nil)
       :config
       (require 'smartparens-config))
+
+    (use-package highlight-indent-guides
+      :hook (prog-mode . highlight-indent-guides-mode)
+      :custom (highlight-indent-guides-method 'character))
 #+end_src
 ** Projectile
     Projectile give emacs the project management features and have version 
