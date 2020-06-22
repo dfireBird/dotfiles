@@ -650,6 +650,12 @@
       :mode (("\\.ts\\'" . typescript-mode)
              ("\\.tsx\\'" . typescript-mode)))
 
+    (use-package prettier-js
+      :bind ("C-c f")
+      :hook
+      ((js-mode . prettier-js-mode)
+       (typescript-mode . prettier-js-mode)
+       (rjsx-mode . prettier-js-mode)))
     (use-package add-node-modules-path
       :hook ((web-mode rjsx-mode). add-node-modules-path))
 #+end_src
