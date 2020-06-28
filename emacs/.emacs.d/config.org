@@ -469,10 +469,11 @@
         '("cmake_install.cmake")
         projectile-globally-ignored-files))
       :custom
-      (projectile-project-search-path '("~/Projects/" "~/Projects/OSS"))
+      (projectile-project-search-path '("~/Projects"))
       (projectile-enable-caching t)
       (projectile-require-project-root t)
-      (projectile-sort-order 'access-time)
+      (projectile-sort-order 'default)
+      (projectile-completion-system 'ivy)
       :bind
       ([f5] . projectile-run-project)
       :init
