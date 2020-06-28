@@ -10,6 +10,7 @@
  '(cmake-tab-width 4 t)
  '(company-minimum-prefix-length 0)
  '(company-tooltip-align-annotation t t)
+ '(css-indent-offset 2)
  '(custom-idle-delay 0 t)
  '(custom-safe-themes
    '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "8a379e7ac3a57e64de672dd744d4730b3bdb88ae328e8106f95cd81cbd44e0b6" default))
@@ -29,14 +30,13 @@
  '(enable-recursive-mini-buffers t t)
  '(flycheck-check-syntax-automatically '(save mode-enabled))
  '(ivy-use-virtual-buffers t)
+ '(js-indent-level 2)
  '(lsp-auto-guess-root t)
  '(lsp-logo-io t t)
  '(lsp-prefer-flymake nil t)
- '(lsp-ui-doc-delay 2.0 t)
+ '(lsp-ui-doc-delay 2.0)
  '(lsp-ui-flycheck-enable t t)
- '(lsp-ui-peek-always-show t t)
- '(org-agenda-files
-   '("/home/firebird/Projects/agenda/birdtorrent.org" "/home/firebird/Projects/agenda/languages.org" "/home/firebird/Projects/agenda/tech.org"))
+ '(lsp-ui-peek-always-show t)
  '(org-pretty-entities t)
  '(package-selected-packages
    '(2048-game typit forge xterm-color wakatime-mode treemacs-icons-dired treemacs-magit treemacs-projectile which-key vue-mode use-package rjsx-mode react-snippets magit emmet-mode elcord doom-modeline company-lsp cmake-mode add-node-modules-path))
@@ -58,6 +58,7 @@
       (case-label . +))))
  '(sp-escape-quotes-after-insert nil)
  '(treemacs-resize-icons 4 t)
+ '(typescript-indent-level 2)
  '(wakatime-cli-path "/usr/bin/wakatime")
  '(wakatime-python-bin nil)
  '(zoom-mode t nil (zoom)))
