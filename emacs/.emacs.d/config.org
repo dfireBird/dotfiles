@@ -64,6 +64,7 @@
     - [[#bullets][Bullets]]
 - [[#data][Data]]
   - [[#docker][Docker]]
+  - [[#yaml][Yaml]]
 - [[#fun][Fun]]
   - [[#kana][Kana]]
   - [[#game][Game]]
@@ -847,6 +848,15 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
     :hook (dockerfile-mode . lsp))
 
   (use-package docker)
+#+end_src
+** Yaml
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :mode ("\\.yml\\'"  .  yaml-mode)
+    :config
+    (add-hook 'yaml-mode-hook
+      '(lambda ()
+        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 #+end_src
 * Fun
 ** Kana
