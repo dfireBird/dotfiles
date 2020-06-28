@@ -568,15 +568,17 @@
   (use-package indium)
 #+end_src
 ** Treemacs
-   Treemacs is used for IDE-like display of errors.
+   Treemacs is used for IDE-like file tree.
 
 #+begin_src emacs-lisp
     (use-package treemacs
       :bind (:map global-map
                   ("C-x t t"  . treemacs)
-                  ("C-x t 1"  . treemacs-select-window))
+                  ("C-x t 1"  . treemacs-select-window)
+		  ("M-0"      . treemacs-select-window))
       :custom
-      (treemacs-resize-icons 4))
+      (treemacs-resize-icons 4)
+      (treemacs-width 25))
 
       (use-package lsp-treemacs
         :init
