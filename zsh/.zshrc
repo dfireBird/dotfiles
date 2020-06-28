@@ -81,7 +81,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-z zsh-autosuggestions thefuck)
+plugins=(git zsh-z zsh-autosuggestions docker docker-compose cargo golang torrent)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,10 +115,6 @@ source $ZSH/oh-my-zsh.sh
 alias serialno="sudo dmidecode -s system-serial-number"
 alias py="python3"
 alias activate="source ./.venv/bin/activate"
-alias mysqlr="mysql -u root -p"
-alias tl="java -jar ~/Games/Tlauncher/TLauncher-2.68.jar"
-alias code="codium"
-alias minecraft="~/Games/minecraft_start.sh"
 alias doom="emacs --with-profile doom"
 
 extract ()
