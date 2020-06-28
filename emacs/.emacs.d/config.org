@@ -611,6 +611,10 @@
       (custom-idle-delay 0)
       (company-tooltip-align-annotation t)
       (company-minimum-prefix-length 0))
+
+    (use-package company-web
+      :straight (company-web
+                  :type git :host github :repo "osv/company-web"))
 #+end_src
 **** Company Box
 #+begin_src emacs-lisp
