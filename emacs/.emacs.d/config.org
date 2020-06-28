@@ -799,6 +799,9 @@ Install Pyls
       (org-pretty-entities t)
       :bind ("C-c a" . org-agenda))
 
+  (use-package grip-mode)
+
+  (setq org-agenda-files '("~/Projects/agenda"))
   (defun dfirebird/org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
 
