@@ -173,6 +173,7 @@
 				 (csharp-mode      .  "csharp-mode_icon")
 				 (css-mode         .  "css-mode_icon")
 				 (emacs            .  "emacs_icon")
+				 (gdscript-mode    .  "gdscript-mode_icon")
 				 (go-mode          .  "go-mode_icon")
 				 (haskell-mode     .  "haskell-mode_icon")
 				 (html-mode        .  "html-mode_icon")
@@ -191,6 +192,7 @@
 				 (ruby-mode        .  "ruby-mode_icon")
 				 (rust-mode        .  "rust-mode_icon")
 				 (rustic-mode      .  "rust-mode_icon")
+				 (sh-mode          .  "sh-mode_icon")
 				 (swift-mode       .  "swift-mode_icon")
 				 (typescript-mode  .  "typescript-mode_icon")))
 #+end_src
