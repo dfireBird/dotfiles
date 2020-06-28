@@ -666,37 +666,53 @@
     Should not bind rjsx with tsx mode
 
 #+begin_src emacs-lisp
-    (use-package rjsx-mode
-      :hook
-      (rjsx-mode . lsp)
-      :mode
-      (("\\.js\\'"   . rjsx-mode)
-       ("\\.jsx\\'"  . rjsx-mode)
-       ("\\.json\\'" . js-mode))
-      :magic ("/\\*\\* @jsx React\\.Dom \\*/" "^import React")
-      :init
-      (setq-default rjsx-basic-offset 2)
-      (setq-default rjsx-global-externs '("module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON")))
+  (use-package rjsx-mode
+    :hook
+    (rjsx-mode . lsp)
+    :mode
+    (("\\.js\\'"   . rjsx-mode)
+     ("\\.jsx\\'"  . rjsx-mode)
+     ("\\.json\\'" . json-mode))
+    :magic ("/\\*\\* @jsx React\\.Dom \\*/" "^import React")
+    :init
+    (setq-default rjsx-basic-offset 2)
+    (setq-default rjsx-global-externs '("module" "require" "assert" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON")))
 
-    (use-package react-snippets
-      :after yasnippet)
+  ;; TSX
+  (use-package web-mode
+    :straight nil
+    :mode
+    (("\\.tsx\\'"   .    web-mode))
+    :config
+    ;;TSX config
+     (add-hook 'web-mode-hook
+               (lambda ()
+                 (when (string-equal "tsx" (file-name-extension buffer-file-name))
+		   (add-to-list 'company-backends '(company-web-html))
+		   (tide-setup))))
+    ;; enable typescript-tslint checker
+    (flycheck-add-mode 'typescript-tslint 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
+
+  (use-package react-snippets
+    :after yasnippet)
 #+end_src
 
 *** TIDE
     This config is TypeScript Interactive Developement Environement for Emacs
-    (TIDE)(I don't use TypeScipt yet but will be use when I start learning)
+    (TIDE)
 
 #+begin_src emacs-lisp
-    (use-package tide
-      :after
-      (typescript-mode company flycheck)
-      :hook
-      ((typescript-mode . tide-setup)
-       (typescript-mode . tide-hl-identifier-mode)
-       (before-save . tide-format-before-save))
-      :config
-      (flycheck-add-next-checker 'typescript-tide 'javascript-eslint)
-      (flycheck-add-next-checker 'tsx-tide 'javascript-eslint))
+  (use-package tide
+    :after
+    (typescript-mode company flycheck)
+    :hook
+    ((typescript-mode . tide-setup)
+     (typescript-mode . tide-hl-identifier-mode)
+     (before-save . tide-format-before-save))
+    :config
+    (flycheck-add-next-checker 'typescript-tide 'javascript-eslint)
+    (flycheck-add-next-checker 'tsx-tide 'javascript-eslint))
 #+end_src
 
 *** Vue config
