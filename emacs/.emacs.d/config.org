@@ -647,7 +647,14 @@
      ("\\.as[cp]x\\'"   .    web-mode)
      ("\\.erb\\'"       .    web-mode)
      ("\\.mustache\\'"  .    web-mode)
-     ("\\.djhtml\\'"    .    web-mode)))
+     ("\\.djhtml\\'"    .    web-mode)
+     ("\\.tsx\\'"       .    web-mode))
+   :config
+    (defadvice company-in-string-or-comment (around company-in-string-or-comment-hack activate)
+    (if (memq major-mode '(php-mode html-mode web-mode nxml-mode))
+        (setq ad-return-value nil)
+      ad-do-it)))
+
 #+end_src
 
 ** JavaScipt / TypeScript
@@ -657,8 +664,7 @@
     (use-package typescript-mode
       :hook
       (typescript-mode . lsp)
-      :mode (("\\.ts\\'" . typescript-mode)
-             ("\\.tsx\\'" . typescript-mode)))
+      :mode (("\\.ts\\'" . typescript-mode)))
 
     (use-package prettier-js
       :bind ("C-c f")
