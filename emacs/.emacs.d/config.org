@@ -65,6 +65,7 @@
 - [[#data][Data]]
   - [[#docker][Docker]]
   - [[#yaml][Yaml]]
+  - [[#graphql][Graphql]]
 - [[#fun][Fun]]
   - [[#kana][Kana]]
   - [[#game][Game]]
@@ -891,6 +892,10 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
     (add-hook 'yaml-mode-hook
       '(lambda ()
         (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+#+end_src
+** Graphql
+#+begin_src emacs-lisp
+  (use-package graphql-mode)
 #+end_src
 * Fun
 ** Kana
