@@ -67,4 +67,8 @@
   :config
   (autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
   (setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode))
-                               auto-mode-alist)))
+                                auto-mode-alist)))
+
+(use-package! ace-window
+  :bind
+  ("M-o"  . ace-window))
