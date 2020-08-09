@@ -13,7 +13,7 @@
  '(css-indent-offset 2)
  '(custom-idle-delay 0 t)
  '(custom-safe-themes
-   '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "8a379e7ac3a57e64de672dd744d4730b3bdb88ae328e8106f95cd81cbd44e0b6" default))
+   '("912cac216b96560654f4f15a3a4d8ba47d9c604cbc3b04801e465fb67a0234f0" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "8a379e7ac3a57e64de672dd744d4730b3bdb88ae328e8106f95cd81cbd44e0b6" default))
  '(dashboard-center-content t)
  '(dashboard-set-file-icons t)
  '(dashboard-set-heading-icons t)
@@ -34,9 +34,9 @@
  '(lsp-auto-guess-root t)
  '(lsp-logo-io t t)
  '(lsp-prefer-flymake nil t)
- '(lsp-ui-doc-delay 2.0)
+ '(lsp-ui-doc-delay 2.0 t)
  '(lsp-ui-flycheck-enable t t)
- '(lsp-ui-peek-always-show t)
+ '(lsp-ui-peek-always-show t t)
  '(org-pretty-entities t)
  '(package-selected-packages
    '(2048-game typit forge xterm-color wakatime-mode treemacs-icons-dired treemacs-magit treemacs-projectile which-key vue-mode use-package rjsx-mode react-snippets magit emmet-mode elcord doom-modeline company-lsp cmake-mode add-node-modules-path))
@@ -58,9 +58,11 @@
       (case-label . +))))
  '(sp-escape-quotes-after-insert nil)
  '(treemacs-resize-icons 4 t)
- '(typescript-indent-level 2)
+ '(typescript-indent-level 4)
  '(wakatime-cli-path "/usr/bin/wakatime")
  '(wakatime-python-bin nil)
+ '(web-mode-code-indent-offset 4)
+ '(web-mode-markup-indent-offset 2)
  '(zoom-mode t nil (zoom)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
