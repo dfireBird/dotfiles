@@ -59,6 +59,7 @@
   - [[#golang][Golang]]
   - [[#python][Python]]
   - [[#gdscript][GdScript]]
+  - [[#glsl][GLSL]]
 - [[#literate-languages][Literate Languages]]
   - [[#org][Org]]
     - [[#table-of-contents][Table of Contents]]
@@ -839,6 +840,13 @@ Install Pyls
 ** GdScript
 #+begin_src emacs-lisp
   (use-package gdscript-mode)
+#+end_src
+** GLSL
+#+begin_src emacs-lisp
+    (use-package glsl-mode
+      :straight (glsl-mode
+                  :type git :host github :repo "jimhourihan/glsl-mode")
+      :mode ("\\.glsl\\'" . glsl-mode))
 #+end_src
 * Literate Languages
 ** Org
