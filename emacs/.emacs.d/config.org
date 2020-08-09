@@ -801,6 +801,12 @@
       (rustic-format-on-save t)
       (rustic-indent-method-chain t)
       (rustic-lsp-server 'rust-analyzer))
+
+    (use-package lsp-rust
+      :straight nil
+      :custom
+      (lsp-rust-analyzer-cargo-load-out-dirs-from-check t))
+
 #+end_src
 
 ** Golang
