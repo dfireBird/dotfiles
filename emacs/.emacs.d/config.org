@@ -839,7 +839,9 @@ Install Pyls
 #+end_src
 ** GdScript
 #+begin_src emacs-lisp
-  (use-package gdscript-mode)
+  (use-package gdscript-mode
+    :hook
+    (gdscript-mode . lsp))
 #+end_src
 ** GLSL
 #+begin_src emacs-lisp
