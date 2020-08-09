@@ -922,6 +922,8 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
      ("\\.Dockerfile\\'" .    dockerfile-mode))
     :hook (dockerfile-mode . lsp))
 
+  (use-package docker-compose-mode)
+
   (use-package docker)
 #+end_src
 ** Yaml
