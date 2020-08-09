@@ -56,6 +56,7 @@
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
   - [[#rust][Rust]]
+  - [[#golang][Golang]]
   - [[#python][Python]]
   - [[#gdscript][GdScript]]
 - [[#literate-languages][Literate Languages]]
@@ -799,6 +800,29 @@
       (rustic-format-on-save t)
       (rustic-indent-method-chain t)
       (rustic-lsp-server 'rust-analyzer))
+#+end_src
+
+** Golang
+#+begin_src emacs-lisp
+  (use-package go-mode
+    :if (and (executable-find "go") (executable-find "bingo"))
+    :hook
+    (go-mode . lsp)
+    :mode "\\.go\\'"
+    :custom (gofmt-command "goimports")
+    :bind (:map go-mode-map
+		("C-c C-n"  .  go-run))
+    :config
+    (add-hook 'before-save-hook #'gofmt-before-save))
+
+  (use-package gotest
+    :after go)
+
+  (use-package go-tag
+    :after go
+    :config
+    (setq go-tag-args (list "-transform" "camelcase")))
+
 #+end_src
 ** Python
 Install Pyls
