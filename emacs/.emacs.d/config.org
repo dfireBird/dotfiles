@@ -8,6 +8,7 @@
   - [[#garbage-collection][Garbage Collection]]
 - [[#package-setup][Package Setup]]
   - [[#package-installer][Package Installer]]
+  - [[#shell-paths][Shell paths]]
 - [[#variables][Variables]]
 - [[#startup][Startup]]
   - [[#backup][Backup]]
@@ -142,6 +143,12 @@
   (straight-use-package 'use-package)
 #+end_src
 
+** Shell paths
+#+begin_src emacs-lisp
+    (use-package exec-path-from-shell
+      :init
+      (exec-path-from-shell-initialize))
+#+end_src
 * Variables
    Variable for the use in this config
 #+begin_src emacs-lisp
