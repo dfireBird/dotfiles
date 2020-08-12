@@ -59,6 +59,7 @@
   - [[#rust][Rust]]
   - [[#golang][Golang]]
   - [[#python][Python]]
+  - [[#dart][Dart]]
   - [[#gdscript][GdScript]]
   - [[#glsl][GLSL]]
 - [[#literate-languages][Literate Languages]]
@@ -471,6 +472,7 @@
       (setq projectile-project-root-files-top-down-recurring
        (append
         '("compile_commands.json" ".ccls")
+	'("pubspec.yaml" "BUILD")
         projectile-project-root-files-top-down-recurring))
       (setq projectile-globally-ignored-directories
        (append
@@ -850,6 +852,26 @@ Install Pyls
     (python-fill-docstring-style 'pep-257)
     (python-indent-guess-indent-offset nil))
 #+end_src
+** Dart
+#+begin_src emacs-lisp
+    (use-package lsp-dart
+      :custom
+      (lsp-dart-sdk-dir "~/Android/flutter/bin/cache/dart-sdk"))
+
+    (use-package dart-mode
+      :hook (dart-mode . lsp)
+      :custom
+      (dart-format-on-save t))
+
+    ;; Flutter config
+    (use-package flutter
+      :after dart-mode
+      :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+      :custom
+      (flutter-sdk-path "~/Android/flutter"))
+#+end_src
+
 ** GdScript
 #+begin_src emacs-lisp
   (use-package gdscript-mode
