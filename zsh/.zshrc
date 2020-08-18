@@ -8,8 +8,9 @@ export PATH=$HOME/bin:$PATH
 
 ## I'm not using android atm so I disabled it
 
-#export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-#export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools:$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/Android/flutter/bin
 export GTK_THEME=Adwaita:dark
 
 # Path to your oh-my-zsh installation.
