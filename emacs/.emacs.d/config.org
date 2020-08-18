@@ -73,6 +73,7 @@
 - [[#fun][Fun]]
   - [[#kana][Kana]]
   - [[#game][Game]]
+  - [[#leetcode][Leetcode]]
 
 * Preface
     After sometime in spacemacs (interested in emacs a long time 
@@ -978,4 +979,12 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
 ** Game
 #+begin_src emacs-lisp
 (use-package 2048-game)
+#+end_src
+** Leetcode
+#+begin_src emacs-lisp
+    (use-package leetcode
+      :custom
+      (leetcode-prefer-language "rust")
+      (leetcode-solutions t)
+      (leetcode-directory "~/Projects/leetcode"))
 #+end_src
