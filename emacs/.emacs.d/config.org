@@ -184,6 +184,7 @@
 				 (cpp-mode         .  "cpp-mode_icon")
 				 (csharp-mode      .  "csharp-mode_icon")
 				 (css-mode         .  "css-mode_icon")
+				 (dart-mode        .  "dart_mode-icon")
 				 (emacs            .  "emacs_icon")
 				 (gdscript-mode    .  "gdscript-mode_icon")
 				 (go-mode          .  "go-mode_icon")
@@ -852,6 +853,8 @@ Install Pyls
     (python-indent 4)
     (python-fill-docstring-style 'pep-257)
     (python-indent-guess-indent-offset nil))
+
+  (use-package pyvenv)
 #+end_src
 ** Dart
 #+begin_src emacs-lisp
