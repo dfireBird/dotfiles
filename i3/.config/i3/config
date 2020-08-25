@@ -151,6 +151,7 @@ bindsym $mod+Shift+minus move scratchpad
 ## Applications
 
 # Startup User Applications
+exec emacs --daemon
 exec discord
 
 # Assign applications to workspaces
