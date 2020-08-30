@@ -1,5 +1,6 @@
 #+TITLE: An Emacs Configuration
 #+Author: dfireBird
+#+PROPERTY: header-args :tangle config.el
 #+Startup: Overview
 * Table of Contents :TOC_3:
 - [[#preface][Preface]]
