@@ -49,6 +49,7 @@
   - [[#code-completion][Code completion]]
     - [[#company][Company]]
   - [[#snippets][Snippets]]
+  - [[#tramp][TRAMP]]
 - [[#languages][Languages]]
   - [[#htmlcss][HTML/CSS]]
   - [[#javascipt--typescript][JavaScipt / TypeScript]]
@@ -656,6 +657,23 @@
       :config
       (use-package yasnippet-snippets)
       (yas-global-mode 1))
+#+end_src
+** TRAMP
+Used especially for editing file with root permissions
+#+begin_src emacs-lisp
+  (use-package tramp
+    :straight nil
+    :config
+    ;; apparently it's faster mentioned by kkhan01
+    (setq tramp-default-method "ssh")
+    (setq password-cache-expiry nil))
+
+  (defadvice find-file (after find-file-sudo activate)
+    "Find file as root if necessary."
+    (unless (and buffer-file-name
+                 (file-writable-p buffer-file-name))
+      (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
 #+end_src
 * Languages
 ** HTML/CSS
