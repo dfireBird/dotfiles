@@ -475,6 +475,8 @@
     (use-package highlight-indent-guides
       :hook (prog-mode . highlight-indent-guides-mode)
       :custom (highlight-indent-guides-method 'character))
+
+    (setq-default indent-tabs-mode nil)
 #+end_src
 ** Projectile
     Projectile give emacs the project management features and have version 
@@ -656,7 +658,9 @@
     (use-package yasnippet
       :config
       (use-package yasnippet-snippets)
-      (yas-global-mode 1))
+      (yas-global-mode 1)
+      :bind
+      ("C-c i" . yas-insert-snippet))
 #+end_src
 ** TRAMP
 Used especially for editing file with root permissions
