@@ -28,6 +28,7 @@
   - [[#interface][Interface]]
     - [[#completion-frontend][Completion Frontend]]
     - [[#splash-screen][Splash Screen]]
+    - [[#confirmation-messages][Confirmation Messages]]
   - [[#terminal][Terminal]]
   - [[#wakatime][Wakatime]]
   - [[#spell-check][Spell Check]]
@@ -405,6 +406,15 @@
                               (recents . 5)
 			      (agenda . 5)))
       (dashboard-setup-startup-hook))
+      (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+#+end_src
+*** Confirmation Messages
+#+begin_src emacs-lisp
+  (defalias 'yes-or-no-p (lambda (&rest _) t))
+  (setq-default confirm-kill-emacs nil)
+  (setq save-abbrevs t)
+  (setq-default abbrev-mode t)
+  (setq save-abbrevs 'silently)
 #+end_src
 ** Terminal
     Vterm is used for built-in terminal emulator for emacs
