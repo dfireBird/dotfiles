@@ -61,6 +61,7 @@
     - [[#ccls][CCLS]]
   - [[#rust][Rust]]
   - [[#golang][Golang]]
+  - [[#racket][Racket]]
   - [[#python][Python]]
   - [[#dart][Dart]]
   - [[#gdscript][GdScript]]
@@ -864,6 +865,14 @@ Used especially for editing file with root permissions
     :config
     (setq go-tag-args (list "-transform" "camelcase")))
 
+#+end_src
+** Racket
+#+begin_src emacs-lisp
+    (use-package racket-mode
+      :mode "\\.rkt\\'"
+      :hook (racket-mode . racket-xp-mode)
+      :bind (:map racket-mode-map
+                  ("C-c C-r" . racket-run)))
 #+end_src
 ** Python
 Install Pyls
