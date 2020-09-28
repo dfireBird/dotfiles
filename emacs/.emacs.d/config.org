@@ -62,6 +62,7 @@
   - [[#rust][Rust]]
   - [[#golang][Golang]]
   - [[#racket][Racket]]
+  - [[#elixir][Elixir]]
   - [[#python][Python]]
   - [[#dart][Dart]]
   - [[#gdscript][GdScript]]
@@ -873,6 +874,23 @@ Used especially for editing file with root permissions
       :hook (racket-mode . racket-xp-mode)
       :bind (:map racket-mode-map
                   ("C-c C-r" . racket-run)))
+#+end_src
+** Elixir
+#+begin_src emacs-lisp
+  (use-package elixir-mode
+    :hook (elixir-mode . company-mode)
+          (elixir-mode . lsp))
+
+  (use-package flycheck-credo
+    :init (flycheck-credo-setup)
+    :hook (elixir-mode . flycheck-mode))
+
+  (use-package alchemist
+    :hook 
+    (alchemist-mode-hook . (lambda ()
+                             (message "company")
+                             (add-to-list 
+                               'company-backends '(company-capf alchemist-company)))))
 #+end_src
 ** Python
 Install Pyls
