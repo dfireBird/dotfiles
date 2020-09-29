@@ -22,6 +22,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id i3-battery-popup -n
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
+exec --no-startup-id udiskie --smart-tray
 
 # touchpad config
 exec xinput set-prop 11 330 1
@@ -55,15 +56,17 @@ bindysm --release Ctrl+Shift+Print exec i3-scrot -w
 
 # Window Configuration
 for_window [class=".*"] border none 1
+for_window [class=".*"] border pixel 0
 for_window [urgent=latest] focus
 
-floating_maximum_size 1280 x 720
+floating_maximum_size 1366 x 768
 hide_edge_borders vertical
 
 for_window [title="Discord Updater"] border none 0
 for_window [class="Alacritty"] layout default, border none 0
 for_window [class="Pcmanfm"] floating enable border normal
 for_window [class="opengl"] floating enable border normal
+for_window [class="godo_chess"] floating enable
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -151,7 +154,6 @@ bindsym $mod+Shift+minus move scratchpad
 ## Applications
 
 # Startup User Applications
-exec emacs --daemon
 exec discord
 
 # Assign applications to workspaces
@@ -204,6 +206,11 @@ mode "resize" {
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"
 }
+
+## Gaps
+gaps inner 8
+gaps outer 5
+smart_gaps on
 
 ## Colors
 set_from_resource $fg i3wm.color7
