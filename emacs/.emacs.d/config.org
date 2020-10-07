@@ -385,7 +385,8 @@
       :config
       (setq recentf-exclude '("languages.org"
                              "tech.org"
-			     "birdtorrent.org")))
+			     "birdtorrent.org"
+			     "COMMIT_EDITMSG")))
 
     (use-package dashboard
       :custom
@@ -494,7 +495,7 @@
       (projectile-project-search-path '("~/Projects"))
       (projectile-enable-caching t)
       (projectile-require-project-root t)
-      (projectile-sort-order 'default)
+      (projectile-sort-order 'access-time)
       (projectile-completion-system 'ivy)
       :bind
       ([f5] . projectile-run-project)
@@ -662,13 +663,6 @@ Used especially for editing file with root permissions
     ;; apparently it's faster mentioned by kkhan01
     (setq tramp-default-method "ssh")
     (setq password-cache-expiry nil))
-
-  (defadvice find-file (after find-file-sudo activate)
-    "Find file as root if necessary."
-    (unless (and buffer-file-name
-                 (file-writable-p buffer-file-name))
-      (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
 #+end_src
 * Languages
 ** HTML/CSS
