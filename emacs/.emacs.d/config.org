@@ -918,6 +918,12 @@ Install Pyls
               ("C-M-x" . #'flutter-run-or-hot-reload))
       :custom
       (flutter-sdk-path "~/Android/flutter"))
+
+    (use-package dart-snippets
+      :straight (dart-snippets :type git
+		 :host github
+		 :repo "MYDavoodeh/dart-snippets"
+		 :files ("*.el" ("snippets" "snippets/*"))))
 #+end_src
 
 ** GdScript
