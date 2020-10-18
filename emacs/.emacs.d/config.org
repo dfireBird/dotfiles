@@ -563,8 +563,10 @@
 #+begin_src emacs-lisp
     (use-package lsp-ui
       :hook (lsp-mode . lsp-ui-mode)
+      :bind (:map lsp-mode-map
+                  ("M-]" . lsp-ui-sideline-apply-code-actions))
       :custom
-      (lsp-ui-doc-delay 2.0)
+      (lsp-ui-doc-delay 1.0)
       (lsp-ui-flycheck-enable t)
       (lsp-ui-peek-always-show t))
 #+end_src
@@ -628,8 +630,9 @@
 #+begin_src emacs-lisp
     (use-package company
       :hook (after-init . global-company-mode)
-      :bind
-      ("C-;" . company-complete)
+      :bind (:map company-mode
+                  ("C-;" . company-complete)
+                  ("M-[" . company-complete))
       :custom
       (custom-idle-delay 0)
       (company-tooltip-align-annotation t)
