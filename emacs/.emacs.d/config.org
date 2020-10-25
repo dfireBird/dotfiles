@@ -50,6 +50,7 @@
     - [[#company][Company]]
   - [[#snippets][Snippets]]
   - [[#tramp][TRAMP]]
+  - [[#mmm-mode][MMM-mode]]
 - [[#languages][Languages]]
   - [[#htmlcss][HTML/CSS]]
   - [[#javascipt--typescript][JavaScipt / TypeScript]]
@@ -689,6 +690,13 @@ Used especially for editing file with root permissions
                     (derived-mode-p 'wdired-mode))
             (default-directory))))))
 #+end_src
+** MMM-mode
+#+begin_src  emacs-lisp
+  (use-package mmm-mode)
+  ;; (require 'mmm-auto)
+  (setq mmm-global-mode 'maybe)
+  (setq mmm-submode-decoration-level 0)
+#+end_src
 * Languages
 ** HTML/CSS
     Emmet auto completion is used for HTML and CSS.
@@ -1046,6 +1054,14 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
 ** Graphql
 #+begin_src emacs-lisp
   (use-package graphql-mode)
+
+  (mmm-add-classes
+    '((js-graphql
+          :submode graphql-mode
+          :face mmm-declaration-submode-face
+          :front "[^a-zA-Z]gql`" ;; regex to find the opening tag
+          :back "`")))
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'js-graphql)
 #+end_src
 * Fun
 ** Kana
