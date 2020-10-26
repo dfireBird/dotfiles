@@ -705,6 +705,7 @@ Used especially for editing file with root permissions
   (use-package emmet-mode
     :hook ((css-mode php-mode sgml-mode rjsx-mode web-mode) . emmet-mode))
   (use-package web-mode
+    :hook(web-mode . lsp)
     :mode
     (("\\.html?\\'"     .    web-mode)
      ("\\.phtml\\'"     .    web-mode)
@@ -713,8 +714,7 @@ Used especially for editing file with root permissions
      ("\\.as[cp]x\\'"   .    web-mode)
      ("\\.erb\\'"       .    web-mode)
      ("\\.mustache\\'"  .    web-mode)
-     ("\\.djhtml\\'"    .    web-mode)
-     ("\\.tsx\\'"       .    web-mode))
+     ("\\.djhtml\\'"    .    web-mode))
    :config
     (defadvice company-in-string-or-comment (around company-in-string-or-comment-hack activate)
     (if (memq major-mode '(php-mode html-mode web-mode nxml-mode))
@@ -765,12 +765,7 @@ Used especially for editing file with root permissions
     (("\\.tsx\\'"   .    web-mode))
     :config
     ;;TSX config
-     (add-hook 'web-mode-hook
-               (lambda ()
-                 (when (string-equal "tsx" (file-name-extension buffer-file-name))
-		   (add-to-list 'company-backends '(company-web-html))
-		   (tide-setup))))
-    ;; enable typescript-tslint checker
+    (add-to-list 'company-backends '(company-capf company-web-html))
     (flycheck-add-mode 'typescript-tslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'web-mode))
 
