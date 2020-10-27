@@ -38,7 +38,7 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       ;pretty-code       ; ligatures or substitute text with pretty symbols
+       ;; ligatures       ; ligatures or substitute text with pretty symbols
        ;;tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
@@ -112,7 +112,7 @@
        (csharp +lsp +unity); unity, .NET, and mono shenanigans
        data              ; config/data formats
        (dart +lsp +flutter)   ; paint ui and not much else
-       ;;elixir            ; erlang done right
+       (elixir +lsp)            ; erlang done right
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
