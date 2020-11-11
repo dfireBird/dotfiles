@@ -151,4 +151,6 @@ function vterm_printf() {
     fi
 }
 
-eval $(thefuck --alias)
+eval "$(gh completion -s zsh)"
+
+[ -f "/home/firebird/.ghcup/env" ] && source "/home/firebird/.ghcup/env" # ghcup-env
