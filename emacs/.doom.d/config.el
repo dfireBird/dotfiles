@@ -72,3 +72,20 @@
 (use-package! ace-window
   :bind
   ("M-o"  . ace-window))
+
+(display-battery-mode t)
+
+(use-package! nyan-mode
+  :init (nyan-mode t)
+  :config
+  (setq nyan-animate-nyancat t)
+  (setq nyan-wavy-trail t)
+  (setq nyan-bar-length 25)
+  (nyan-start-animation))
+
+(use-package! prettier-js
+  :bind ("C-c f")
+  :hook
+  ((js2-mode . prettier-js-mode)
+   (typescript-mode . prettier-js-mode)
+   (rjsx-mode . prettier-js-mode)))

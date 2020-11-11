@@ -51,3 +51,7 @@
 (package! omnisharp)
 
 (package! pkgbuild-mode)
+
+(package! nyan-mode)
+
+(package! prettier-js)
