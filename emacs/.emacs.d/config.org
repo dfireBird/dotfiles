@@ -64,6 +64,7 @@
   - [[#golang][Golang]]
   - [[#racket][Racket]]
   - [[#elixir][Elixir]]
+  - [[#haskell][Haskell]]
   - [[#python][Python]]
   - [[#dart][Dart]]
   - [[#gdscript][GdScript]]
@@ -913,6 +914,16 @@ Used especially for editing file with root permissions
                              (message "company")
                              (add-to-list 
                                'company-backends '(company-capf alchemist-company)))))
+#+end_src
+** Haskell
+Let's go pure fp
+#+begin_src emacs-lisp
+  (use-package haskell-mode
+    :mode "\\.hs\\'"
+    :hook
+    (haskell-mode . lsp))
+
+  (use-package lsp-haskell)
 #+end_src
 ** Python
 Install Pyls
