@@ -73,6 +73,21 @@
   :bind
   ("M-o"  . ace-window))
 
+(use-package! mmm-mode
+  :config
+  (setq mmm-global-mode 'maybe)
+  (setq mmm-submode-decoration-level 0))
+
+(use-package! graphql-mode
+  :config
+  (mmm-add-classes
+    '((js-graphql
+          :submode graphql-mode
+          :face mmm-declaration-submode-face
+          :front "[^a-zA-Z]gql`" ;; regex to find the opening tag
+          :back "`")))
+  (mmm-add-mode-ext-class 'js2-mode nil 'js-graphql))
+
 (display-battery-mode t)
 
 (use-package! nyan-mode

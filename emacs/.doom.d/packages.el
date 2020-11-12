@@ -52,6 +52,10 @@
 
 (package! pkgbuild-mode)
 
+(package! mmm-mode)
+
+(package! graphql-mode)
+
 (package! nyan-mode)
 
 (package! prettier-js)
