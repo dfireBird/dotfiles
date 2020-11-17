@@ -11,6 +11,7 @@
   - [[#package-installer][Package Installer]]
   - [[#shell-paths][Shell paths]]
 - [[#variables][Variables]]
+- [[#functions][Functions]]
 - [[#startup][Startup]]
   - [[#backup][Backup]]
   - [[#elcord][Elcord]]
@@ -166,6 +167,32 @@
     (defconst firebird/settings-exist? (file-exists-p firebird/settings-path))
     (when firebird/settings-exist?
       (load-file firebird/settings-path))
+#+end_src
+* Functions
+- Sudo current file
+#+begin_src emacs-lisp
+  (defun firebird--sudo-file-path (file)
+    (let ((host (or (file-remote-p file 'host) "localhost")))
+      (concat "/" (when (file-remote-p file)
+                    (concat (file-remote-p file 'method) ":"
+                            (if-let (user (file-remote-p file 'user))
+                                (concat user "@" host)
+                              host)
+                            "|"))
+              "sudo:root@" host
+              ":" (or (file-remote-p file 'localname)
+                      file))))
+
+  (defun firebird/sudo-this-file ()
+    "Open the current file as root"
+    (interactive)
+    (find-file
+     (firebird--sudo-file-path
+      (or buffer-file-name
+          (when (or (derived-mode-p 'dired-mode)
+                    (derived-mode-p 'wdired-mode))
+            (default-directory))))))
+
 #+end_src
 * Startup
 ** Backup
@@ -668,28 +695,6 @@ Used especially for editing file with root permissions
     ;; apparently it's faster mentioned by kkhan01
     (setq tramp-default-method "ssh")
     (setq password-cache-expiry nil))
-
-  (defun firebird--sudo-file-path (file)
-    (let ((host (or (file-remote-p file 'host) "localhost")))
-      (concat "/" (when (file-remote-p file)
-                    (concat (file-remote-p file 'method) ":"
-                            (if-let (user (file-remote-p file 'user))
-                                (concat user "@" host)
-                              host)
-                            "|"))
-              "sudo:root@" host
-              ":" (or (file-remote-p file 'localname)
-                      file))))
-
-  (defun firebird/sudo-this-file ()
-    "Open the current file as root"
-    (interactive)
-    (find-file
-     (firebird--sudo-file-path
-      (or buffer-file-name
-          (when (or (derived-mode-p 'dired-mode)
-                    (derived-mode-p 'wdired-mode))
-            (default-directory))))))
 #+end_src
 ** MMM-mode
 #+begin_src  emacs-lisp
