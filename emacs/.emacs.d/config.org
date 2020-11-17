@@ -194,6 +194,21 @@
             (default-directory))))))
 
 #+end_src
+- UUID-generator
+#+begin_src emacs-lisp
+  (use-package request)
+
+  (defun firebird/generate-uuid ()
+  (interactive)
+  (request
+    "https://www.uuidgenerator.net/api/version4"
+    :sync t
+    :complete (cl-function
+               (lambda (&key response &allow-other-keys)
+                 (insert (request-response-data response))))))
+
+  (defalias 'generate-uuid 'firebird/generate-uuid)
+#+end_src
 * Startup
 ** Backup
     Backups are take hella time to clean and it's so ugly
