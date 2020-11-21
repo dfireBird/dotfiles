@@ -985,6 +985,13 @@ Install Pyls
 		 :host github
 		 :repo "MYDavoodeh/dart-snippets"
 		 :files ("*.el" ("snippets" "snippets/*"))))
+
+    ;; Mimic android stuido's hotreload after save
+    (add-hook 'after-save-hook
+	  (lambda ()
+	    (if (eq major-mode 'dart-mode)
+	    (when (get-buffer "*Flutter*")
+	      (flutter-run-or-hot-reload)))))
 #+end_src
 
 ** GdScript
