@@ -198,14 +198,22 @@
 #+begin_src emacs-lisp
   (use-package request)
 
+  (defun firebird--request-uuid ()
+    (request-response-data (request
+                             "https://www.uuidgenerator.net/api/version4"
+                             :sync t)))
+
+  (defun firebird--uuidgen ()
+    (replace-regexp-in-string "\n$" "" 
+                              (shell-command-to-string "uuidgen")))
+
   (defun firebird/generate-uuid ()
-  (interactive)
-  (request
-    "https://www.uuidgenerator.net/api/version4"
-    :sync t
-    :complete (cl-function
-               (lambda (&key response &allow-other-keys)
-                 (insert (request-response-data response))))))
+    "Generates UUID and insert them into buffer at the point invoked"
+    (interactive)
+    (insert
+      (if (string-equal system-type "gnu/linux")
+          (firebird--uuidgen)
+        (firebird--request-uuid))))
 
   (defalias 'generate-uuid 'firebird/generate-uuid)
 #+end_src
