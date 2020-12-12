@@ -1032,7 +1032,7 @@ Install Pyls
   (use-package grip-mode)
 
   (setq org-agenda-files '("~/Projects/agenda"))
-  (defun dfirebird/org-skip-subtree-if-priority (priority)
+  (defun firebird/org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
 
 PRIORITY maybe one of the characters ?A, ?B, or ?C."
@@ -1049,7 +1049,7 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (alltodo ""
-                     ((org-agenda-skip-function '(or (dfirebird/org-skip-subtree-if-priority ?A)
+                     ((org-agenda-skip-function '(or (firebird/org-skip-subtree-if-priority ?A)
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks t)))))
