@@ -40,12 +40,12 @@
   - [[#magit][Magit]]
   - [[#linters][Linters]]
     - [[#flycheck][Flycheck]]
+  - [[#formatters][Formatters]]
   - [[#documenation][Documenation]]
   - [[#debug-server][Debug Server]]
     - [[#lsp][LSP]]
     - [[#lsp-ui][LSP-UI]]
     - [[#debug-adapter-protocol-dap][Debug Adapter Protocol (DAP)]]
-    - [[#indium][Indium]]
   - [[#treemacs][Treemacs]]
   - [[#code-completion][Code completion]]
     - [[#company][Company]]
@@ -589,6 +589,10 @@
       :custom
       (flycheck-check-syntax-automatically '(save mode-enabled)))
 #+end_src
+** Formatters
+#+begin_src emacs-lisp
+  (use-package reformatter)
+#+end_src
 ** Documenation
     Eldoc shows arguments for function overloads in echo area
 #+begin_src emacs-lisp
@@ -954,6 +958,11 @@ Let's go pure fp
     (haskell-mode . lsp))
 
   (use-package lsp-haskell)
+  (use-package ormolu
+    :hook (haskell-mode . ormolu-format-on-save-mode)
+    :bind
+    (:map haskell-mode-map
+      ("C-c r" . ormolu-format-buffer)))
 #+end_src
 ** Python
 Install Pyls
