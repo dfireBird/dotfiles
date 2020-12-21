@@ -571,7 +571,9 @@
       ("C-x g" . magit))
 
     (use-package forge
-      :after magit)
+      :after magit
+      :config
+      (setq auth-sources '("~/.authinfo")))
 #+end_src
 ** Linters
 *** Flycheck
