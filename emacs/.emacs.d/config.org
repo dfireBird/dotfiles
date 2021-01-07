@@ -616,7 +616,8 @@
       :custom
       (lsp-auto-guess-root t)
       (lsp-logo-io t)
-      (lsp-prefer-flymake nil))
+      (lsp-prefer-flymake nil)
+      (lsp-headerline-breadcrumb-enable nil))
 #+end_src
 *** LSP-UI
     This package give UI to LSP server such as popups and visual indicators.
