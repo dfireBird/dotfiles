@@ -25,8 +25,8 @@ exec --no-startup-id picom -b
 exec --no-startup-id udiskie --smart-tray
 
 # touchpad config
-exec xinput set-prop 11 330 1
-exec xinput set-prop 11 312 1
+exec xinput set-prop 11 333 1
+exec xinput set-prop 11 315 1
 
 # Keyboard config
 exec setxkbmap -layout us,us -variant ,colemak -option grp:shifts_toggle,ctrl:nocaps,lv3:ralt_alt
