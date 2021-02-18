@@ -25,7 +25,7 @@ exec --no-startup-id picom -b
 exec --no-startup-id udiskie --smart-tray
 
 # touchpad config
-exec xinput set-prop 11 333 1
+exec xinput set-prop 11 335 1
 exec xinput set-prop 11 315 1
 
 # Keyboard config
@@ -92,6 +92,9 @@ bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
+
+bindsym $mod+x move workspace to output up
+bindsym $mod+z move workspace to output right
 
 # Keybindings for orientation of windows
 bindsym $mod+h split horizontal
