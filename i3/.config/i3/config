@@ -9,7 +9,7 @@ font pango: Roboto 11
 
 # Keybindings for i3-specific
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+p restart
 bindsym $mod+Shift+w exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 ## Utilities
@@ -29,7 +29,7 @@ exec xinput set-prop 11 335 1
 exec xinput set-prop 11 315 1
 
 # Keyboard config
-exec setxkbmap -layout us,us -variant ,colemak -option grp:shifts_toggle,ctrl:nocaps,lv3:ralt_alt
+exec setxkbmap -layout us,us -variant colemak, -option grp:shifts_toggle,ctrl:nocaps,lv3:ralt_alt
 exec xmodmap $HOME/.xmodmap
 
 # Keybinding for sound adjusment
@@ -80,18 +80,18 @@ bindsym $mod+Shift+q kill
 bindsym $alt+F4 kill
 
 # Keybindings for changing focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+n focus left
+bindsym $mod+e focus down
+bindsym $mod+i focus up
+bindsym $mod+o focus right
 
 bindsym $mod+Ctrl+space focus mode_toggle
 
 # Keybindings for moving windows
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+n move left
+bindsym $mod+Shift+e move down
+bindsym $mod+Shift+i move up
+bindsym $mod+Shift+o move right
 
 bindsym $mod+x move workspace to output up
 bindsym $mod+z move workspace to output right
@@ -101,9 +101,9 @@ bindsym $mod+h split horizontal
 bindsym $mod+v split vertical
 
 # Keybindings for container layouts
-bindsym $mod+s layout stacking
+bindsym $mod+r layout stacking
 bindsym $mod+a layout tabbed
-bindsym $mod+d layout toggle split
+bindsym $mod+s layout toggle split
 
 # Keybindings for toggle tiling/floating
 bindsym $mod+Shift+space floating toggle
@@ -136,12 +136,12 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 
 # Keybindings for navigating workspaces
-bindsym $mod+Ctrl+j workspace next
-bindsym $mod+Ctrl+k workspace prev
+bindsym $mod+Ctrl+n workspace next
+bindsym $mod+Ctrl+e workspace prev
 bindsym $alt+Tab workspace next
 bindsym $alt+Shift+Tab workspace prev
 
-bindsym $mod+u workspace back_and_forth
+bindsym $mod+l workspace back_and_forth
 
 # Keybindings for moving windows to workspaces
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -171,8 +171,8 @@ assign [class="Spotify"] $ws9
 
 # Keybindings for starting applications
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+e exec pcmanfm
-bindsym $mod+Shift+e exec emacs
+bindsym $mod+f exec pcmanfm
+bindsym $mod+Shift+f exec emacs
 bindsym $mod+c exec google-chrome
 bindsym $mod+b exec bwmenu
 
@@ -195,13 +195,13 @@ mode "$mode_system" {
 }
 
 # Resize mode
-bindsym $mod+r mode "resize"
+bindsym $mod+p mode "resize"
 
 mode "resize" {
-    bindsym j resize shrink width 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink height 10 px or 10 ppt
-    bindsym semicolon resize grow width 10 px or 10 ppt
+    bindsym n resize shrink width 10 px or 10 ppt
+    bindsym e resize grow height 10 px or 10 ppt
+    bindsym i resize shrink height 10 px or 10 ppt
+    bindsym o resize grow width 10 px or 10 ppt
 
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
