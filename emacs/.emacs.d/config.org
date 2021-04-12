@@ -1,6 +1,5 @@
 #+TITLE: An Emacs Configuration
 #+Author: dfireBird
-#+PROPERTY: header-args :tangle config.el
 #+Startup: Overview
 * Table of Contents :TOC_3:
 - [[#preface][Preface]]
@@ -460,7 +459,8 @@
     (use-package recentf
       :straight nil
       :config
-      (setq recentf-exclude '("languages.org"
+      (setq recentf-exclude '("\\/home/firebird/Projects/agenda"
+                             "languages.org"
                              "tech.org"
 			     "birdtorrent.org"
 			     "COMMIT_EDITMSG")))

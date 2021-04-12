@@ -52,7 +52,7 @@ bindsym $mod+space exec --no-startup-id "rofi -show-icons -show drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show-icons -modi windowcd,window,drun -show window"
 
 # Keybindings for Screenshots
-bindsym --release Print exec i3-scrot -d
+bindsym --release Print exec flameshot screen -p ~/Pictures/Screenshots
 bindsym --release Shift+Print exec flameshot gui
 bindysm --release Ctrl+Shift+Print exec i3-scrot -w
 
