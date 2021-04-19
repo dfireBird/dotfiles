@@ -30,7 +30,6 @@
  '(enable-recursive-mini-buffers t t)
  '(flycheck-check-syntax-automatically '(save mode-enabled))
  '(ivy-use-virtual-buffers t)
- '(lsp-auto-guess-root t)
  '(lsp-logo-io t t)
  '(lsp-prefer-flymake nil t)
  '(lsp-ui-doc-delay 2.0)

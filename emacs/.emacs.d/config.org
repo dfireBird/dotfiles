@@ -41,7 +41,7 @@
     - [[#flycheck][Flycheck]]
   - [[#formatters][Formatters]]
   - [[#documenation][Documenation]]
-  - [[#debug-server][Debug Server]]
+- [[#lsp-and-dap][LSP and DAP]]
     - [[#lsp][LSP]]
     - [[#lsp-ui][LSP-UI]]
     - [[#debug-adapter-protocol-dap][Debug Adapter Protocol (DAP)]]
@@ -626,7 +626,7 @@
       :hook (after-init . global-eldoc-mode))
 #+end_src
 
-** Debug Server
+* LSP and DAP
 *** LSP
     LSP gives IDE-like features to Emacs and add features : semantic
     higlighting, auto-completion and others
@@ -636,8 +636,8 @@
       :commands lsp
       :config
       (setq lsp-prefer-capf t)
+      :bind (:map lsp-mode-map ("C-c C-c a" . lsp-execute-code-action))
       :custom
-      (lsp-auto-guess-root t)
       (lsp-logo-io t)
       (lsp-prefer-flymake nil)
       (lsp-headerline-breadcrumb-enable nil))
@@ -648,9 +648,12 @@
     (use-package lsp-ui
       :hook (lsp-mode . lsp-ui-mode)
       :bind (:map lsp-mode-map
-                  ("M-]" . lsp-ui-sideline-apply-code-actions))
+                  ("M-]" . lsp-ui-sideline-apply-code-actions)
+                  ("M-." . lsp-ui-peek-find-definitions)
+                  ("M-?" . lsp-ui-peek-find-references)
+                  ("M-j" . lsp-ui-imenu))
       :custom
-      (lsp-ui-doc-delay 1.0)
+      (lsp-ui-doc-delay 0.6)
       (lsp-ui-flycheck-enable t)
       (lsp-ui-peek-always-show t))
 #+end_src
@@ -714,11 +717,10 @@
 #+begin_src emacs-lisp
     (use-package company
       :hook (after-init . global-company-mode)
-      :bind (:map company-mode
-                  ("C-;" . company-complete)
-                  ("M-[" . company-complete))
+      :bind (:map company-mode-map
+                  ("C-;" . company-complete))
       :custom
-      (custom-idle-delay 0)
+      (company-idle-delay 0.5)
       (company-tooltip-align-annotation t)
       (company-minimum-prefix-length 0))
 
@@ -737,9 +739,11 @@
     (use-package yasnippet
       :config
       (use-package yasnippet-snippets)
-      (yas-global-mode 1)
-      :bind
-      ("C-c i" . yas-insert-snippet))
+      (yas-reload-all)
+      (add-hook 'prog-mode-hook 'yas-minor-mode)
+      (add-hook 'text-mode-hook 'yas-minor-mode)
+      :bind (:map company-mode-map
+                  ("M-[" . yas-expand)))
 #+end_src
 ** TRAMP
 Used especially for editing file with root permissions
