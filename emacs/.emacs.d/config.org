@@ -917,18 +917,19 @@ Used especially for editing file with root permissions
 #+end_src
 ** Rust
 #+begin_src emacs-lisp
-    (use-package rustic
-      :config
-      (setq rustic-ansi-faces ansi-color-names-vector)
-      :custom
-      (rustic-format-on-save t)
-      (rustic-indent-method-chain t)
-      (rustic-lsp-server 'rust-analyzer))
+  (use-package rustic
+    :config
+    (setq rustic-ansi-faces ansi-color-names-vector)
+    :custom
+    (rustic-format-on-save t)
+    (rustic-indent-method-chain t)
+    (rustic-lsp-server 'rust-analyzer))
 
     (use-package lsp-rust
       :straight nil
       :custom
-      (lsp-rust-analyzer-cargo-load-out-dirs-from-check t))
+      (lsp-rust-analyzer-cargo-load-out-dirs-from-check t)
+      (lsp-rust-analyzer-server-display-inlay-hints t))
 
 #+end_src
 
