@@ -532,6 +532,13 @@
       (prog-mode . hs-minor-mode)
       :bind
       ("<C-tab>" . hs-toggle-hiding))
+      (:map hs-minor-mode-map
+        ("<C-tab>" . hs-toggle-hiding)))
+    (use-package vimish-fold
+      :hook (prog-mode . vimish-fold-mode)
+      :bind
+      ("C-c C-h"  . vimish-fold-toggle))
+
 
     (use-package smartparens
       :hook
