@@ -32,6 +32,8 @@
  '(ivy-use-virtual-buffers t)
  '(lsp-logo-io t t)
  '(lsp-prefer-flymake nil t)
+ '(lsp-rust-analyzer-cargo-run-build-scripts t nil nil "Customized with use-package lsp-rust")
+ '(lsp-semantic-tokens-enable t nil nil "Customized with use-package lsp-mode")
  '(lsp-ui-doc-delay 2.0)
  '(lsp-ui-flycheck-enable t t)
  '(lsp-ui-peek-always-show t)
