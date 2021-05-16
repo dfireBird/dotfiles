@@ -80,7 +80,6 @@
 - [[#fun][Fun]]
   - [[#kana][Kana]]
   - [[#game][Game]]
-  - [[#leetcode][Leetcode]]
 
 * Preface
     After sometime in spacemacs (interested in emacs a long time 
@@ -237,36 +236,45 @@
     (elcord-client-id "714056771391717468")
     (elcord-use-major-mode-as-main-icon t))
 
+  (defun firebird--enable-elcord-daemon (frame)
+    "Enables elcord if atleast one frame is availble. Disable it if there are none"
+    (if (and (> (length (frame-list)) 1))
+        (elcord-mode)
+      (funcall 'elcord-mode -1)))
+
+  (add-hook 'after-make-frame-functions 'firebird--enable-elcord-daemon)
+  (add-hook 'after-delete-frame-functions 'firebird--enable-elcord-daemon)
+
   (setq elcord-mode-icon-alist '((c-mode           .  "c-mode_icon")
-				 (cpp-mode         .  "cpp-mode_icon")
-				 (csharp-mode      .  "csharp-mode_icon")
-				 (css-mode         .  "css-mode_icon")
-				 (dart-mode        .  "dart-mode_icon")
-				 (elixir-mode      .  "elixir-mode_icon")
-				 (emacs            .  "emacs_icon")
-				 (gdscript-mode    .  "gdscript-mode_icon")
-				 (go-mode          .  "go-mode_icon")
+                                 (cpp-mode         .  "cpp-mode_icon")
+                                 (csharp-mode      .  "csharp-mode_icon")
+                                 (css-mode         .  "css-mode_icon")
+                                 (dart-mode        .  "dart-mode_icon")
+                                 (elixir-mode      .  "elixir-mode_icon")
+                                 (emacs            .  "emacs_icon")
+                                 (gdscript-mode    .  "gdscript-mode_icon")
+                                 (go-mode          .  "go-mode_icon")
                                  (graphql-mode     .  "graphql-mode_icon")
-				 (haskell-mode     .  "haskell-mode_icon")
-				 (html-mode        .  "html-mode_icon")
-				 (web-mode         .  "html-mode_icon")
-				 (java-mode        .  "java-mode_icon")
-				 (js-mode          .  "javascript-mode_icon")
-				 (kotlin-mode      .  "kotlin-mode_icon")
-				 (lua-mode         .  "lua-mode_icon")
-				 (magit-mode       .  "magit-mode_icon")
-				 (markdown-mode    .  "markdown-mode_icon")
-				 (nim-mode         .  "nim-mode_icon")
-				 (org-mode         .  "org-mode_icon")
-				 (php-mode         .  "php-mode_icon")
-				 (python-mode      .  "python-mode_icon")
-				 (r-mode           .  "r-mode_icon")
-				 (ruby-mode        .  "ruby-mode_icon")
-				 (rust-mode        .  "rust-mode_icon")
-				 (rustic-mode      .  "rust-mode_icon")
-				 (sh-mode          .  "sh-mode_icon")
-				 (swift-mode       .  "swift-mode_icon")
-				 (typescript-mode  .  "typescript-mode_icon")))
+                                 (haskell-mode     .  "haskell-mode_icon")
+                                 (html-mode        .  "html-mode_icon")
+                                 (web-mode         .  "html-mode_icon")
+                                 (java-mode        .  "java-mode_icon")
+                                 (js-mode          .  "javascript-mode_icon")
+                                 (kotlin-mode      .  "kotlin-mode_icon")
+                                 (lua-mode         .  "lua-mode_icon")
+                                 (magit-mode       .  "magit-mode_icon")
+                                 (markdown-mode    .  "markdown-mode_icon")
+                                 (nim-mode         .  "nim-mode_icon")
+                                 (org-mode         .  "org-mode_icon")
+                                 (php-mode         .  "php-mode_icon")
+                                 (python-mode      .  "python-mode_icon")
+                                 (r-mode           .  "r-mode_icon")
+                                 (ruby-mode        .  "ruby-mode_icon")
+                                 (rust-mode        .  "rust-mode_icon")
+                                 (rustic-mode      .  "rust-mode_icon")
+                                 (sh-mode          .  "sh-mode_icon")
+                                 (swift-mode       .  "swift-mode_icon")
+                                 (typescript-mode  .  "typescript-mode_icon")))
 #+end_src
 
 ** Keybindings
@@ -1163,12 +1171,4 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
 ** Game
 #+begin_src emacs-lisp
 (use-package 2048-game)
-#+end_src
-** Leetcode
-#+begin_src emacs-lisp
-    (use-package leetcode
-      :custom
-      (leetcode-prefer-language "rust")
-      (leetcode-solutions t)
-      (leetcode-directory "~/Projects/leetcode"))
 #+end_src
