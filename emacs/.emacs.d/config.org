@@ -539,7 +539,6 @@
       :hook
       (prog-mode . hs-minor-mode)
       :bind
-      ("<C-tab>" . hs-toggle-hiding))
       (:map hs-minor-mode-map
         ("<C-tab>" . hs-toggle-hiding)))
     (use-package vimish-fold
@@ -692,10 +691,6 @@
 
 #+end_src
 
-*** Indium
-#+begin_src emacs-lisp
-  (use-package indium)
-#+end_src
 ** Treemacs
    Treemacs is used for IDE-like file tree.
 
