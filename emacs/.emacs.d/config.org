@@ -997,11 +997,21 @@ Let's go pure fp
 #+begin_src emacs-lisp
   (use-package haskell-mode
     :mode "\\.hs\\'"
-    :custom (haskell-stylish-on-save t)
     :hook
     (haskell-mode . lsp))
 
   (use-package lsp-haskell)
+#+end_src
+
+Create functions for formatting haskell code using a shell script combining both formoulu and stylish-haskell
+#+begin_src emacs-lisp
+  ;;;###autoload (autoload 'haskell-format-buffer "current-file" nil t)
+  ;;;###autoload (autoload 'haskell-format-region "current-file" nil t)
+  ;;;###autoload (autoload 'haskell-format-on-save-mode "current-file" nil t)
+  (reformatter-define haskell-format
+    :program "~/bin/haskell-format")
+  (define-key haskell-mode-map (kbd "C-c C-f") 'haskell-format-buffer)
+  (add-hook 'haskell-mode 'haskell-format-on-save-mode)
 #+end_src
 ** Python
 Install Pyls
