@@ -15,7 +15,7 @@ bindsym $mod+Shift+w exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 ## Utilities
 
 # xss-lock graps logind suspend and transfer it to betterlockscreen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l blur --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- multilockscreen -l blur
 
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -86,6 +86,7 @@ bindsym $mod+i focus up
 bindsym $mod+o focus right
 
 bindsym $mod+Ctrl+space focus mode_toggle
+bindsym $mod+t fullscreen toggle
 
 # Keybindings for moving windows
 bindsym $mod+Shift+n move left
@@ -141,7 +142,7 @@ bindsym $mod+Ctrl+e workspace prev
 bindsym $alt+Tab workspace next
 bindsym $alt+Shift+Tab workspace prev
 
-bindsym $mod+l workspace back_and_forth
+bindsym $mod+y workspace back_and_forth
 
 # Keybindings for moving windows to workspaces
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -216,7 +217,7 @@ mode "resize" {
 
 ## Gaps
 gaps inner 8
-gaps outer 5
+gaps outer 0
 smart_gaps on
 
 ## Colors
