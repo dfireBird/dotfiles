@@ -1001,6 +1001,8 @@ Let's go pure fp
     (haskell-mode . lsp))
 
   (use-package lsp-haskell)
+
+  (use-package haskell-snippets)
 #+end_src
 
 Create functions for formatting haskell code using a shell script combining both formoulu and stylish-haskell
@@ -1011,7 +1013,7 @@ Create functions for formatting haskell code using a shell script combining both
   (reformatter-define haskell-format
     :program "~/bin/haskell-format")
   (define-key haskell-mode-map (kbd "C-c C-f") 'haskell-format-buffer)
-  (add-hook 'haskell-mode 'haskell-format-on-save-mode)
+  (add-hook 'haskell-mode-hook 'haskell-format-on-save-mode)
 #+end_src
 ** Python
 Install Pyls
