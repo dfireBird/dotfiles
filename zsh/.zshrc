@@ -1,8 +1,8 @@
 (cat ~/.cache/wal/sequences &)
 
 # If you come from bash you might have to change your $PATH.
-export DENO_INSTALL_ROOT=$HOME/.deno
-export PATH=$PATH:$DENO_INSTALL_ROOT/bin
+#export DENO_INSTALL_ROOT=$HOME/.deno
+#export PATH=$PATH:$DENO_INSTALL_ROOT/bin
 export PATH=$HOME/bin:$PATH
 
 ## I'm not using android atm so I disabled it
@@ -79,7 +79,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-z zsh-autosuggestions docker flutter yarn mix)
+plugins=(git zsh-z zsh-autosuggestions docker yarn mix)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -150,6 +150,6 @@ function vterm_printf() {
     fi
 }
 
-eval "$(gh completion -s zsh)"
-
+# source /usr/share/nvm/init-nvm.sh
 [ -f "/home/firebird/.ghcup/env" ] && source "/home/firebird/.ghcup/env" # ghcup-env
+. "$HOME/.cargo/env"
