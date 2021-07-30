@@ -894,11 +894,13 @@ Used especially for editing file with root permissions
 
     (use-package c-mode
       :straight nil
-      :hook (c-mode . lsp))
+      :hook (c-mode . lsp)
+            (c-mode . (lambda () (funcall 'electric-pair-mode -1))))
 
     (use-package c++-mode
       :straight nil
-      :hook (c++-mode . lsp))
+      :hook (c++-mode . lsp)
+            (c++-mode . (lambda () (funcall 'electric-pair-mode -1))))
 
     (setq gdb-many-windows t)
 #+end_src
@@ -921,8 +923,10 @@ Used especially for editing file with root permissions
 #+begin_src emacs-lisp
     (use-package ccls
       :after lsp-mode
+      :custom (ccls-sem-highlight-method 'font-lock)
       :config
       (setq ccls-initialization-options '(:index (:threads 1)))
+      (ccls-use-default-rainbow-sem-highlight)
       :hook ((c-mode c++-mode) . (lambda ()
                                    (require 'ccls)
                                    (lsp))))
