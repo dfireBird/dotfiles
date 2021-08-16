@@ -145,9 +145,10 @@
 
 #+begin_src emacs-lisp
   (setq straight-use-package-by-default t)
+  (setq straight-check-for-modifications '(check-on-save find-when-checking))
   (setq use-package-always-demand nil
         use-package-verbose t
-	byte-compile-warnings nil)
+        byte-compile-warnings nil)
   (straight-use-package 'use-package)
 #+end_src
 
