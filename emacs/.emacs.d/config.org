@@ -605,6 +605,7 @@
 
 #+begin_src emacs-lisp
     (use-package magit
+      :init (setq project-switch-commands 't)
       :bind
       ("C-x g" . magit))
 
@@ -1002,6 +1003,7 @@ Let's go pure fp
 #+begin_src emacs-lisp
   (use-package haskell-mode
     :mode "\\.hs\\'"
+    :custom (haskell-indentation-left-offset 4)
     :hook
     (haskell-mode . lsp))
 
