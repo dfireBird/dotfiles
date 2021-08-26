@@ -109,7 +109,7 @@
         (setq gc-cons-threshold 16777216
               gc-cons-percentage 0.1
               file-name-handler-alist (append last-file-name-handler-alist
-	  	                                  file-name-handler-alist))
+                                                  file-name-handler-alist))
         ;; delete any duplicate values
         (cl-delete-duplicates file-name-handler-alist :test 'equal)
         ;; get rid of temporarily variables
@@ -222,8 +222,8 @@
 #+begin_src emacs-lisp
     (setq-default backup-inhibited t
                   auto-save-default nil
-		  create-lockfiles nil
-		  make-backup-files nil)
+                  create-lockfiles nil
+                  make-backup-files nil)
 #+end_src
 ** Elcord
     Elcord is RPC for discord (I like to showoff)
@@ -334,56 +334,55 @@
 
 *** Font
 #+begin_src emacs-lisp
-  (defun aorst/font-installed-p (font-name)
-    "Check if font with FONT-NAME is available."
-    (if (find-font (font-spec :name font-name))
-        t
-      nil))
-  (use-package all-the-icons
-    :config
-    (when (and (not (aorst/font-installed-p "all-the-icons"))
-               (window-system))
-      (all-the-icons-install-fonts t)))
+      (defun aorst/font-installed-p (font-name)
+        "Check if font with FONT-NAME is available."
+        (if (find-font (font-spec :name font-name))
+            t
+          nil))
+      (use-package all-the-icons
+        :config
+        (when (and (not (aorst/font-installed-p "all-the-icons"))
+                   (window-system))
+          (all-the-icons-install-fonts t)))
 
 
-  (set-face-attribute 'default nil
-                       :family "JetBrains Mono"
-                       :weight 'semi-light
-                       :height 105)
-  (set-face-attribute 'mode-line nil
-                       :family "JetBrains Mono"
-                       :weight 'semi-light
-                       :height 100)
-  (set-face-attribute 'mode-line-inactive nil
-                       :family "JetBrains Mono"
-                       :weight 'semi-light
-                       :height 100)
+      (set-face-attribute 'default nil
+                           :family "JetBrains Mono"
+                           :weight 'semi-light
+                           :height 105)
+      (set-face-attribute 'mode-line nil
+                           :family "JetBrains Mono"
+                           :weight 'semi-light
+                           :height 100)
+      (set-face-attribute 'mode-line-inactive nil
+                           :family "JetBrains Mono"
+                           :weight 'semi-light
+                           :height 100)
 
-  (use-package emojify
-    :init
-    (global-emojify-mode)
-    :bind
-    ("C-x C-i" . emojify-insert-emoji))
+      (use-package emojify
+        :init
+        (global-emojify-mode)
+        :bind
+        ("C-x C-i" . emojify-insert-emoji))
 
-  (use-package ligature
-    :straight (:host github
-               :repo "mickeynp/ligature.el")
-    :config
-    (ligature-set-ligatures
-     '(prog-mode cider-repl-mode)
-     '("--" "---" "==" "===" "!=" "!==" "=!=" "=:=" "=/=" "<=" ">="
-       "&&" "&&&" "&=" "++" "+++" ";;" "!!" "??" "?:" "?." "?="
-       "<:" ":<" ":>" ">:" "<>" "<<<" ">>>" "<<" ">>" "||" "-|" "_|_"
-       "|-" "||-" "|=" "||=" "##" "###" "####" "#{" "#[" "]#" "#(" "#?"
-       "#_" "#_(" "#:" "#!" "#=" "^=" "<$>" "<$" "$>" "<+>" "<+" "+>"
-       "<*>" "<*" "*>" "</" "</>" "/>" "<!--" "<#--" "-->" "->" "->>"
-       "<<-" "<-" "<=<" "=<<" "<<=" "<==" "<=>" "<==>" "==>" "=>" "=>>"
-       ">=>" ">>=" ">>-" ">-" ">--" "-<" "-<<" ">->" "<-<" "<-|" "<=|"
-       "|=>" "|->" "<->" "<~~" "<~" "<~>" "~~" "~~>" "~>" "~-" "-~" "~@"
-       "[||]" "|]" "[|" "|}" "{|" "[<" ">]" "|>" "<|" "||>" "<||" "|||>"
-       "<|||" "<|>" "..." ".." ".=" ".-" "..<" ".?" "::" ":::" ":=" "::="
-       ":?" ":?>" "//" "///" "/=" "//=" "/==" "@_" "__"))
-    (global-ligature-mode t))
+      (use-package ligature
+        :straight (:host github
+                   :repo "mickeynp/ligature.el")
+        :config
+        (ligature-set-ligatures
+         'prog-mode
+         '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+           "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+           "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+           "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+           "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+           "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+           ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+           "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+           "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+           "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+           "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+        (global-ligature-mode t))
 #+end_src
 
 *** Doom mode line
