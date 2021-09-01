@@ -25,6 +25,7 @@
     - [[#doom-mode-line][Doom mode line]]
     - [[#zoom][Zoom]]
     - [[#diff-hl][Diff-hl]]
+    - [[#hl-todo][Hl-todo]]
   - [[#interface][Interface]]
     - [[#completion-frontend][Completion Frontend]]
     - [[#splash-screen][Splash Screen]]
@@ -432,6 +433,21 @@
     :config
     (global-diff-hl-mode))
 #+end_src
+*** Hl-todo
+#+begin_src emacs-lisp
+  (use-package hl-todo
+    :hook (prog-mode  .  hl-todo-mode)
+    :config
+      (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold))))
+#+end_src
+
 ** Interface
 *** Completion Frontend
     Ivy is minimal and custom completion frontend which I'm going to use
