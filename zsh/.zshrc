@@ -8,9 +8,11 @@ export PATH=$HOME/bin:$PATH
 ## I'm not using android atm so I disabled it
 
 export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools:$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/Android/flutter/bin
 export GTK_THEME=Adwaita:dark
+
+export NVM_LAZY_LOAD=true
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -79,7 +81,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-z zsh-autosuggestions docker yarn mix)
+plugins=(git zsh-z zsh-autosuggestions docker yarn mix stack zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -153,3 +155,11 @@ function vterm_printf() {
 # source /usr/share/nvm/init-nvm.sh
 [ -f "/home/firebird/.ghcup/env" ] && source "/home/firebird/.ghcup/env" # ghcup-env
 . "$HOME/.cargo/env"
+
+export PATH=$PATH:/home/firebird/.go/bin
+
+export GOPATH=/home/firebird/go
+
+export PATH=$PATH:/home/firebird/go/bin
+
+export NVM_DIR="$HOME/.nvm"
