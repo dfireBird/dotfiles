@@ -15,11 +15,11 @@ bindsym $mod+Shift+w exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 ## Utilities
 
 # xss-lock graps logind suspend and transfer it to betterlockscreen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- multilockscreen -l blur
+exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l blur
 
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id i3-battery-popup -n
+exec --no-startup-id i3-battery-popup -n -L 20 -l -t 30s
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
 exec --no-startup-id udiskie --smart-tray
