@@ -56,7 +56,6 @@
   - [[#javascipt--typescript][JavaScipt / TypeScript]]
     - [[#react-config][React config]]
     - [[#tide][TIDE]]
-    - [[#vue-config][Vue config]]
   - [[#cc][C/C++]]
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
@@ -343,7 +342,7 @@
     Doom mode line is custome mode line with several unqiue features
 #+begin_src emacs-lisp
   (use-package doom-modeline
-    :init (doom-modeline-mode t)
+    :init (doom-modeline-mode)
     :config
     (setq doom-modeline-icon t
           doom-modeline-percent-position nil
@@ -829,17 +828,6 @@ Used especially for editing file with root permissions
     (flycheck-add-next-checker 'tsx-tide 'javascript-eslint))
 #+end_src
 
-*** Vue config
-    This for later if I start vue
-
-#+begin_src emacs-lisp
-    (use-package vue-html-mode)
-
-    (use-package vue-mode
-      :mode
-      (("\\.vue'" . vue-mode)))
-#+end_src
-
 ** C/C++
     No install is needed for C/C++ and its available as a core mode.
 
@@ -950,12 +938,12 @@ Used especially for editing file with root permissions
     :init (flycheck-credo-setup)
     :hook (elixir-mode . flycheck-mode))
 
-  (use-package alchemist
-    :hook 
-    (alchemist-mode-hook . (lambda ()
-                             (message "company")
-                             (add-to-list 
-                               'company-backends '(company-capf alchemist-company)))))
+  (use-package alchemist)
+;;     :hook 
+;;     (alchemist-mode . (lambda ()
+;;                             (message "company")
+;;                             (add-to-list 
+;;                               'company-backends '(company-capf alchemist-company)))))
 #+end_src
 ** Haskell
 Let's go pure fp
