@@ -32,6 +32,7 @@
   - [[#terminal][Terminal]]
   - [[#wakatime][Wakatime]]
   - [[#spell-check][Spell Check]]
+  - [[#input][Input]]
 - [[#programming][Programming]]
   - [[#general][General]]
     - [[#interactive][Interactive]]
@@ -160,11 +161,12 @@
 * Variables
    Variable for the use in this config
 #+begin_src emacs-lisp
-    (defconst firebird/settings-path (concat user-emacs-directory "settings/settings.el"))
-    (message firebird/settings-path)
-    (defconst firebird/settings-exist? (file-exists-p firebird/settings-path))
-    (when firebird/settings-exist?
-      (load-file firebird/settings-path))
+  (defconst firebird/settings-path (concat user-emacs-directory "settings/settings.el"))
+  (message firebird/settings-path)
+  (defconst firebird/settings-exist? (file-exists-p firebird/settings-path))
+
+  (when firebird/settings-exist?
+    (load-file firebird/settings-path))
 #+end_src
 * Functions
 - Sudo current file
@@ -214,6 +216,63 @@
         (firebird--request-uuid))))
 
   (defalias 'generate-uuid 'firebird/generate-uuid)
+#+end_src
+- font set for frame
+#+begin_src  emacs-lisp
+  (defvar emacs-english-font "Jetbrains Mono"
+    "The font name of English.")
+
+  (defvar emacs-cjk-font "Noto Sans CJK JP"
+    "The font name for CJK.")
+
+  (defvar emacs-font-size-pair '(13 . 16)
+    "Default font size pair for (english . japanese)")
+
+  (defvar emacs-font-size-pair-list
+    '(( 5 .  6) (10 . 12)
+      (13 . 16) (15 . 18) (17 . 20)
+      (19 . 22) (20 . 24) (21 . 26)
+      (24 . 28) (26 . 32) (28 . 34)
+      (30 . 36) (34 . 40) (36 . 44))
+    "This list is used to store matching (englis . chinese) font-size.")
+
+  (defun font-exist-p (fontname)
+    "Test if this font is exist or not."
+    (if (or (not fontname) (string= fontname ""))
+        nil
+      (if (not (x-list-fonts fontname)) nil t)))
+
+  (defun set-font (english japanese size-pair)
+    "Setup emacs English and Japanese font on x window-system."
+
+    (if (font-exist-p english)
+        (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t))
+
+    (if (font-exist-p japanese)
+        (dolist (charset '(kana han symbol cjk-misc bopomofo))
+          (set-fontset-font (frame-parameter nil 'font) charset
+                            (font-spec :family japanese :size (cdr size-pair))))))
+
+  (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
+
+  (defun emacs-step-font-size (step)
+    "Increase/Decrease emacs's font size."
+    (let ((scale-steps emacs-font-size-pair-list))
+      (if (< step 0) (setq scale-steps (reverse scale-steps)))
+      (setq emacs-font-size-pair
+            (or (cadr (member emacs-font-size-pair scale-steps))
+                emacs-font-size-pair))
+      (when emacs-font-size-pair
+        (message "emacs font size set to %.1f" (car emacs-font-size-pair))
+        (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
+
+  (defun increase-emacs-font-size ()
+    "Decrease emacs's font-size acording emacs-font-size-pair-list."
+    (interactive) (emacs-step-font-size 1))
+
+  (defun decrease-emacs-font-size ()
+    "Increase emacs's font-size acording emacs-font-size-pair-list."
+    (interactive) (emacs-step-font-size -1))
 #+end_src
 * Startup
 ** Backup
@@ -280,55 +339,61 @@
 
 *** Font
 #+begin_src emacs-lisp
-      (defun aorst/font-installed-p (font-name)
-        "Check if font with FONT-NAME is available."
-        (if (find-font (font-spec :name font-name))
-            t
-          nil))
-      (use-package all-the-icons
-        :config
-        (when (and (not (aorst/font-installed-p "all-the-icons"))
-                   (window-system))
-          (all-the-icons-install-fonts t)))
+    (defun aorst/font-installed-p (font-name)
+      "Check if font with FONT-NAME is available."
+      (if (find-font (font-spec :name font-name))
+          t
+        nil))
+    (use-package all-the-icons
+      :config
+      (when (and (not (aorst/font-installed-p "all-the-icons"))
+                 (window-system))
+        (all-the-icons-install-fonts t)))
 
 
-      (set-face-attribute 'default nil
-                           :family "JetBrains Mono"
-                           :weight 'semi-light
-                           :height 105)
-      (set-face-attribute 'mode-line nil
-                           :family "JetBrains Mono"
-                           :weight 'semi-light
-                           :height 100)
-      (set-face-attribute 'mode-line-inactive nil
-                           :family "JetBrains Mono"
-                           :weight 'semi-light
-                           :height 100)
+    (set-face-attribute 'default nil
+                         :family "JetBrains Mono"
+                         :weight 'semi-light
+                         :height 100)
+    (set-face-attribute 'mode-line nil
+                         :family "JetBrains Mono"
+                         :weight 'semi-light
+                         :height 100)
+    (set-face-attribute 'mode-line-inactive nil
+                         :family "JetBrains Mono"
+                         :weight 'semi-light
+                         :height 100)
 
-      (use-package emojify
-        :init
-        (global-emojify-mode)
-        :bind
-        ("C-x C-i" . emojify-insert-emoji))
+    (when (fboundp #'set-fontset-font)
+      (set-fontset-font t 'chinese-gbk
+                        (font-spec :family "Noto Sanks CJK SC"))
+      (set-fontset-font t 'japanese-jisx0213.2004-1
+                        (font-spec :family "Noto Sans CJK JP")))
 
-      (use-package ligature
-        :straight (:host github
-                   :repo "mickeynp/ligature.el")
-        :config
-        (ligature-set-ligatures
-         'prog-mode
-         '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
-           "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
-           "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
-           "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
-           "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
-           "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
-           ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
-           "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
-           "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
-           "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
-           "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
-        (global-ligature-mode t))
+    (use-package emojify
+      :init
+      (global-emojify-mode)
+      :bind
+      ("C-x C-i" . emojify-insert-emoji))
+
+    (use-package ligature
+      :straight (:host github
+                 :repo "mickeynp/ligature.el")
+      :config
+      (ligature-set-ligatures
+       'prog-mode
+       '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+         "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+         "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+         "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+         "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+         "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+         ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+         "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+         "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+         "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+         "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+      (global-ligature-mode t))
 #+end_src
 
 *** Doom mode line
@@ -481,6 +546,10 @@
   ;;   (add-hook hook (lambda () (flyspell-mode 1))))
   ;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   ;;   (add-hook hook (lambda () (flyspell-mode -1))))
+#+end_src
+** Input
+#+begin_src emacs-lisp
+  (use-package mozc :straight nil)
 #+end_src
 * Programming
 ** General
