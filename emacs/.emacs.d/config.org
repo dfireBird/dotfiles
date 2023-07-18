@@ -339,61 +339,62 @@
 
 *** Font
 #+begin_src emacs-lisp
-    (defun aorst/font-installed-p (font-name)
-      "Check if font with FONT-NAME is available."
-      (if (find-font (font-spec :name font-name))
-          t
-        nil))
-    (use-package all-the-icons
-      :config
-      (when (and (not (aorst/font-installed-p "all-the-icons"))
-                 (window-system))
-        (all-the-icons-install-fonts t)))
+  (use-package nerd-icons)
 
+  (defun aorst/font-installed-p (font-name)
+    "Check if font with FONT-NAME is available."
+    (if (find-font (font-spec :name font-name))
+        t
+      nil))
+  (use-package all-the-icons
+    :config
+    (when (and (not (aorst/font-installed-p "all-the-icons"))
+               (window-system))
+      (all-the-icons-install-fonts t)))
 
-    (set-face-attribute 'default nil
-                         :family "JetBrains Mono"
-                         :weight 'semi-light
-                         :height 100)
-    (set-face-attribute 'mode-line nil
-                         :family "JetBrains Mono"
-                         :weight 'semi-light
-                         :height 100)
-    (set-face-attribute 'mode-line-inactive nil
-                         :family "JetBrains Mono"
-                         :weight 'semi-light
-                         :height 100)
+  (set-face-attribute 'default nil
+                       :family "JetBrains Mono"
+                       :weight 'semi-light
+                       :height 100)
+  (set-face-attribute 'mode-line nil
+                       :family "JetBrains Mono"
+                       :weight 'semi-light
+                       :height 100)
+  (set-face-attribute 'mode-line-inactive nil
+                       :family "JetBrains Mono"
+                       :weight 'semi-light
+                       :height 100)
 
-    (when (fboundp #'set-fontset-font)
-      (set-fontset-font t 'chinese-gbk
-                        (font-spec :family "Noto Sanks CJK SC"))
-      (set-fontset-font t 'japanese-jisx0213.2004-1
-                        (font-spec :family "Noto Sans CJK JP")))
+  (when (fboundp #'set-fontset-font)
+    (set-fontset-font t 'chinese-gbk
+                      (font-spec :family "Noto Sanks CJK SC"))
+    (set-fontset-font t 'japanese-jisx0213.2004-1
+                      (font-spec :family "Noto Sans CJK JP")))
 
-    (use-package emojify
-      :init
-      (global-emojify-mode)
-      :bind
-      ("C-x C-i" . emojify-insert-emoji))
+  (use-package emojify
+    :init
+    (global-emojify-mode)
+    :bind
+    ("C-x C-i" . emojify-insert-emoji))
 
-    (use-package ligature
-      :straight (:host github
-                 :repo "mickeynp/ligature.el")
-      :config
-      (ligature-set-ligatures
-       'prog-mode
-       '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
-         "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
-         "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
-         "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
-         "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
-         "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
-         ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
-         "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
-         "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
-         "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
-         "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
-      (global-ligature-mode t))
+  (use-package ligature
+    :straight (:host github
+               :repo "mickeynp/ligature.el")
+    :config
+    (ligature-set-ligatures
+     'prog-mode
+     '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+       "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+       "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+       "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+       "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+       "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+       ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+       "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+       "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+       "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+       "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+    (global-ligature-mode t))
 #+end_src
 
 *** Doom mode line
