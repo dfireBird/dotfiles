@@ -56,7 +56,7 @@
   - [[#htmlcss][HTML/CSS]]
   - [[#javascipt--typescript][JavaScipt / TypeScript]]
     - [[#react-config][React config]]
-    - [[#tide][TIDE]]
+    - [[#tsx][TSX]]
   - [[#cc][C/C++]]
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
@@ -632,15 +632,15 @@
     and text-editors
 
 #+begin_src emacs-lisp
-    (use-package magit
-      :init (setq project-switch-commands 't)
-      :bind
-      ("C-x g" . magit))
+  (use-package magit
+    :init (setq project-switch-commands 't)
+    :bind
+    ("C-x g" . magit))
 
-    (use-package forge
-      :after magit
-      :config
-      (setq auth-sources '("~/.authinfo")))
+  (use-package forge
+    :after magit
+    :config
+    (setq auth-sources '("~/.authinfo")))
 #+end_src
 ** Linters
 *** Flycheck
@@ -821,8 +821,10 @@ Used especially for editing file with root permissions
      ("\\.as[cp]x\\'"   .    web-mode)
      ("\\.erb\\'"       .    web-mode)
      ("\\.mustache\\'"  .    web-mode)
-     ("\\.djhtml\\'"    .    web-mode))
+     ("\\.djhtml\\'"    .    web-mode)
+     ("\\.heex\\'"      .    web-mode))
    :config
+    (add-to-list 'lsp-language-id-configuration ('web-mode . "html"))
     (defadvice company-in-string-or-comment (around company-in-string-or-comment-hack activate)
     (if (memq major-mode '(php-mode html-mode web-mode nxml-mode))
         (setq ad-return-value nil)
@@ -834,19 +836,19 @@ Used especially for editing file with root permissions
     The usage of react and variety of standards has made it hard to configure
 
 #+begin_src emacs-lisp
-    (use-package typescript-mode
-      :hook
-      (typescript-mode . lsp)
-      :mode (("\\.ts\\'" . typescript-mode)))
+  (use-package typescript-mode
+    :hook
+    (typescript-mode . lsp)
+    :mode (("\\.ts\\'" . typescript-mode)))
 
-    (use-package prettier-js
-      :bind ("C-c f")
-      :hook
-      ((js-mode . prettier-js-mode)
-       (typescript-mode . prettier-js-mode)
-       (rjsx-mode . prettier-js-mode)))
-    (use-package add-node-modules-path
-      :hook ((web-mode rjsx-mode). add-node-modules-path))
+  (use-package prettier-js
+    :bind ("C-c f")
+    :hook
+    ((js-mode . prettier-js-mode)
+     (typescript-mode . prettier-js-mode)
+     (rjsx-mode . prettier-js-mode)))
+  (use-package add-node-modules-path
+    :hook ((web-mode rjsx-mode). add-node-modules-path))
 #+end_src
 
 *** React config
@@ -869,21 +871,19 @@ Used especially for editing file with root permissions
     :after yasnippet)
 #+end_src
 
-*** TIDE
-    This config is TypeScript Interactive Developement Environement for Emacs
-    (TIDE)
+*** TSX
+TSX needs seprate config and TIDE can considered depercated with TS-LS.
+#+begin_src  emacs-lisp
+  (use-package tsi
+    :straight (tsi :type git :host github :repo "orzechowskid/tsi.el"))
+  (use-package tsx-mode
+    :straight (tsx-mode :type git :host github
+                        :repo "orzechowskid/tsx-mode.el" :branch "emacs28")
 
-#+begin_src emacs-lisp
-  (use-package tide
-    :after
-    (typescript-mode company flycheck)
-    :hook
-    ((typescript-mode . tide-setup)
-     (typescript-mode . tide-hl-identifier-mode)
-     (before-save . tide-format-before-save))
-    :config
-    (flycheck-add-next-checker 'typescript-tide 'javascript-eslint)
-    (flycheck-add-next-checker 'tsx-tide 'javascript-eslint))
+    :mode ("\\.tsx\\'" . tsx-mode)
+    :hook (tsx-mode . lsp)
+    :custom
+    (tsx-mode-tsx-auto-tags 't))
 #+end_src
 
 ** C/C++
@@ -1163,7 +1163,7 @@ PRIORITY maybe one of the characters ?A, ?B, or ?C."
     :mode ("\\.yml\\'"  .  yaml-mode)
     :config
     (add-hook 'yaml-mode-hook
-      '(lambda ()
+      (lambda ()
         (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 #+end_src
 ** Graphql
