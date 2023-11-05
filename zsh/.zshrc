@@ -13,14 +13,21 @@ export PATH=$PATH:$HOME/Android/flutter/bin
 export GTK_THEME=Adwaita:dark
 
 export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('code')
+export NVM_COMPLETION=true
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+SPACESHIP_PYENV_SHOW=false
 ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
@@ -81,7 +88,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-z zsh-autosuggestions docker yarn mix stack zsh-nvm)
+plugins=(git zsh-z zsh-autosuggestions docker yarn mix stack zsh-nvm pyenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,6 +122,7 @@ alias serialno="sudo dmidecode -s system-serial-number"
 alias py="python3"
 alias activate="source ./.venv/bin/activate"
 alias doom="emacs --with-profile doom"
+alias kernel_qemu="qemu-system-x86_64 -hda img/arch_disk.raw -m 3G -nographic -kernel linux/arch/x86_64/boot/bzImage -smp 1 -append \"root=/dev/sda rw console=ttyS0 loglevel=5\" -virtfs local,path=modules,mount_tag=modules,security_model=mapped-xattr --enable-kvm"
 
 extract ()
 {
@@ -122,6 +130,7 @@ extract ()
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
       *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xf $1    ;;
       *.bz2)       bunzip2 $1   ;;
       *.rar)       unrar x $1     ;;
       *.gz)        gunzip $1    ;;
@@ -163,3 +172,10 @@ export GOPATH=/home/firebird/go
 export PATH=$PATH:/home/firebird/go/bin
 
 export NVM_DIR="$HOME/.nvm"
+
+# bun completions
+[ -s "/home/firebird/.oh-my-zsh/completions/_bun" ] && source "/home/firebird/.oh-my-zsh/completions/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
