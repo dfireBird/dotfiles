@@ -23,14 +23,12 @@ exec --no-startup-id i3-battery-popup -n -L 20 -l -t 30s
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
 exec --no-startup-id udiskie --smart-tray
-
-# touchpad config
-exec xinput set-prop 11 335 1
-exec xinput set-prop 11 315 1
+exec --no-startup-id blueman-applet
+exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
 
 # Keyboard config
-exec setxkbmap -layout us,us -variant colemak, -option grp:shifts_toggle,ctrl:nocaps,lv3:ralt_alt
-exec xmodmap $HOME/.xmodmap
+# exec setxkbmap -layout us,us -variant colemak, -option grp:shifts_toggle,ctrl:nocaps,lv3:ralt_alt
+# exec xmodmap $HOME/.xmodmap
 
 # Keybinding for sound adjusment
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
@@ -54,7 +52,7 @@ bindsym $mod+Tab exec --no-startup-id "rofi -show-icons -modi windowcd,window,dr
 # Keybindings for Screenshots
 bindsym --release Print exec flameshot screen -p ~/Pictures/Screenshots
 bindsym --release Shift+Print exec flameshot gui
-bindysm --release Ctrl+Shift+Print exec i3-scrot -w
+bindsym --release Ctrl+Shift+Print exec i3-scrot -w
 
 ## Windows
 
@@ -175,7 +173,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+f exec pcmanfm
 bindsym $mod+Shift+f exec emacs
 bindsym $mod+c exec google-chrome
-bindsym $mod+b exec bwmenu
+bindsym $mod+b exec rofi-rbw
 
 ## Keybinding Modes
 
