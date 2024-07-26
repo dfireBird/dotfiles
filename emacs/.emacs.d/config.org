@@ -331,9 +331,6 @@
       (doom-themes-treemacs-config)
       
       (doom-themes-org-config))
-
-    (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
-    (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 #+end_src
 
 *** Font
@@ -352,17 +349,17 @@
       (all-the-icons-install-fonts t)))
 
   (set-face-attribute 'default nil
-                       :family "JetBrains Mono"
-                       :weight 'semi-light
-                       :height 100)
+                      :family "JetBrains Mono"
+                      :weight 'semi-light
+                      :height 100)
   (set-face-attribute 'mode-line nil
-                       :family "JetBrains Mono"
-                       :weight 'semi-light
-                       :height 100)
+                      :family "JetBrains Mono"
+                      :weight 'semi-light
+                      :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                       :family "JetBrains Mono"
-                       :weight 'semi-light
-                       :height 100)
+                      :family "JetBrains Mono"
+                      :weight 'semi-light
+                      :height 100)
 
   (when (fboundp #'set-fontset-font)
     (set-fontset-font t 'chinese-gbk
@@ -377,32 +374,31 @@
     ("C-x C-i" . emojify-insert-emoji))
 
   (use-package ligature
-    :straight (:host github
-               :repo "mickeynp/ligature.el")
+    :straight (:host github :repo "mickeynp/ligature.el")
     :config
-    (ligature-set-ligatures
-     'prog-mode
-     '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
-       "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
-       "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
-       "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
-       "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
-       "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
-       ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
-       "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
-       "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
-       "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
-       "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+    ;; Enable all JetBrains Mono ligatures in programming modes
+    (ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+                                         "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+                                         "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+                                         "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+                                         "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+                                         "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+                                         ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+                                         "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+                                         "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+                                         "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+                                         "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+    ;; Enables ligature checks globally in all buffers. You can also do it
+    ;; per mode with `ligature-mode'.
     (global-ligature-mode t))
 #+end_src
 
 *** Doom mode line
     Needed for modeline features
 #+begin_src emacs-lisp
-    (line-number-mode t)
-    (column-number-mode t)
-    (display-battery-mode t)
-    (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (line-number-mode t)
+  (column-number-mode t)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 #+end_src
     Doom mode line is custome mode line with several unqiue features
 #+begin_src emacs-lisp
@@ -502,12 +498,13 @@
   (use-package dashboard
     :config
     (setq dashboard-center-content t
-          dashboard-set-heading-icons t
           dashboard-set-file-icons t
           dashboard-startup-banner 'logo
-          ;; dashboard-week-agenda t
-          dashboard-page-separator "\n\f\n")
-    (setq dashboard-items '((projects  . 5)
+          dashboard-page-separator "\n\f\n"
+          dashboard-projects-backend 'projectile
+          dashboard-display-icons-p t
+          dashboard-icon-type 'nerd-icons)
+    (setq dashboard-items '((projects . 5)
                             (recents . 5)
                             (agenda . 5)))
     (dashboard-setup-startup-hook))
@@ -555,41 +552,35 @@
 ** General
 *** Interactive
 #+begin_src emacs-lisp
-    (electric-pair-mode)
-    (show-paren-mode)
+  (electric-pair-mode)
+  (show-paren-mode)
 
-    (use-package rainbow-delimiters
-      :hook (prog-mode . rainbow-delimiters-mode))
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
 
-    (use-package paren
-      :config
-      (show-paren-mode t))
+  (use-package paren
+    :config
+    (show-paren-mode t))
 
-    (use-package hs-minor-mode
-      :straight nil
-      :hook
-      (prog-mode . hs-minor-mode)
-      :bind
-      (:map hs-minor-mode-map
-        ("<C-tab>" . hs-toggle-hiding)))
-    (use-package vimish-fold
-      :hook (prog-mode . vimish-fold-mode)
-      :bind
-      ("C-c C-h"  . vimish-fold-toggle))
+  (use-package origami
+    :hook (prog-mode . origami-mode)
+    :bind
+    (:map origami-mode
+          ("C-c C-<tab>" . origami-toggle-node)))
 
 
-    (use-package smartparens
-      :hook
-      (prog-mode . smartparens-mode)
-      :config
-      (setq sp-escape-quotes-after-insert nil)
-      (require 'smartparens-config))
+  (use-package smartparens
+    :hook
+    (prog-mode . smartparens-mode)
+    :config
+    (setq sp-escape-quotes-after-insert nil)
+    (require 'smartparens-config))
 
-    (use-package highlight-indent-guides
-      :hook (prog-mode . highlight-indent-guides-mode)
-      :config (setq highlight-indent-guides-method 'character))
+  (use-package highlight-indent-guides
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :config (setq highlight-indent-guides-method 'character))
 
-    (setq-default indent-tabs-mode nil)
+  (setq-default indent-tabs-mode nil)
 #+end_src
 ** Projectile
     Projectile give emacs the project management features and have version 
@@ -635,7 +626,12 @@
   (use-package magit
     :init (setq project-switch-commands 't)
     :bind
-    ("C-x g" . magit))
+    ("C-x g" . magit)
+    :config
+    (transient-append-suffix 'magit-fetch "-p"
+       '("-t" "Fetch all tags" ("-t" "--tags")))
+    (transient-append-suffix 'magit-pull "-r"
+       '("-a" "Autostash" "--autostash")))
 
   (use-package forge
     :after magit
@@ -679,10 +675,9 @@
   (use-package lsp-mode
     :commands lsp
     :config
-    (setq lsp-prefer-capf t
-          lsp-logo-io t
-          lsp-prefer-flymake nil
-          lsp-enable-semantic-highlighting t
+    (setq lsp-logo-io t
+          lsp-semantic-tokens-enable t
+          lsp-inlay-hint-enable t
           lsp-keep-workspace-alive nil
           lsp-headerline-breadcrumb-enable nil)
     :bind (:map lsp-mode-map ("C-c C-c a" . lsp-execute-code-action)))
@@ -949,13 +944,13 @@ TSX needs seprate config and TIDE can considered depercated with TS-LS.
           rustic-indent-method-chain t
           rustic-lsp-server 'rust-analyzer)
     :bind (:map rustic-mode-map
-                ("C-c C-c C-a"  . rustic-cargo-add)))
+                ("C-c C-c C-a"  . rustic-cargo-add)
+                ("C-C C-r" . lsp-rust-analyzer-run)))
 
     (use-package lsp-rust
       :straight nil
       :config
-      (setq lsp-rust-analyzer-cargo-load-out-dirs-from-check t
-            lsp-rust-analyzer-server-display-inlay-hints t))
+      (setq lsp-rust-analyzer-diagnostics-enable-experimental t))
 
 #+end_src
 
@@ -969,7 +964,6 @@ TSX needs seprate config and TIDE can considered depercated with TS-LS.
     :bind (:map go-mode-map
                 ("C-c C-n"  .  go-run))
     :config
-    (setq gofmt-command "goimports")
     (add-hook 'before-save-hook #'gofmt-before-save))
 
   (use-package gotest
@@ -991,6 +985,13 @@ TSX needs seprate config and TIDE can considered depercated with TS-LS.
 #+end_src
 ** Elixir
 #+begin_src emacs-lisp
+  (use-package alchemist
+    :hook 
+    (alchemist-mode . (lambda ()
+                        (message "company")
+                        (setq-local company-backends '(company-capf alchemist-company company-bbdb company-semantic company-cmake company-clang company-files
+                                                                    (company-dabbrev-code company-gtags company-etags company-keywords)
+                                                                    company-oddmuse company-dabbrev)))))
   (use-package elixir-mode
     :hook (elixir-mode . company-mode)
           (elixir-mode . lsp))
@@ -998,13 +999,6 @@ TSX needs seprate config and TIDE can considered depercated with TS-LS.
   (use-package flycheck-credo
     :init (flycheck-credo-setup)
     :hook (elixir-mode . flycheck-mode))
-
-  (use-package alchemist)
-;;     :hook 
-;;     (alchemist-mode . (lambda ()
-;;                             (message "company")
-;;                             (add-to-list 
-;;                               'company-backends '(company-capf alchemist-company)))))
 #+end_src
 ** Haskell
 Let's go pure fp
@@ -1027,14 +1021,13 @@ Create functions for formatting haskell code using a shell script combining both
   ;;;###autoload (autoload 'haskell-format-on-save-mode "current-file" nil t)
   (reformatter-define haskell-format
     :program "~/bin/haskell-format")
-  (define-key haskell-mode-map (kbd "C-c C-f") 'haskell-format-buffer)
+  ;;; (define-key haskell-mode-map (kbd "C-c C-f") 'haskell-format-buffer)
   (add-hook 'haskell-mode-hook 'haskell-format-on-save-mode)
 #+end_src
 ** Python
 Install Pyls
 #+begin_src emacs-lisp
   (use-package python
-    :if (executable-find "pyls")
     :straight nil
     :hook (python-mode . lsp)
     :config
@@ -1043,6 +1036,8 @@ Install Pyls
           python-indent-guess-indent-offset nil))
 
   (use-package pyvenv)
+  ;; (use-package lsp-pyright
+  ;;   :hook (python-mode . lsp))
 #+end_src
 ** Dart
 #+begin_src emacs-lisp
@@ -1095,39 +1090,40 @@ Install Pyls
    Org is one of the literate languages (like markdown), I started it using
    when I started this config 
 #+begin_src emacs-lisp
-    (straight-override-recipe
-       '(org :type git :host github :repo "emacsmirror/org" :no-build t))
-    (use-package org
-      :mode 
-      ("\\.\\(org\\|ORG\\)\\'" . org-mode)
-      :custom
-      (org-pretty-entities t)
-      :bind ("C-c a" . org-agenda))
+      ;; (straight-override-recipe
+      ;;    '(org :type git :host github :repo "emacsmirror/org" :no-build t))
+      (use-package org
+        :straight nil
+        :mode 
+        ("\\.\\(org\\|ORG\\)\\'" . org-mode)
+        :config
+        (setq org-pretty-entities t)
+        :bind ("C-c a" . org-agenda))
 
-  (use-package grip-mode)
+    (use-package grip-mode)
 
-  (setq org-agenda-files '("~/Projects/agenda"))
-  (defun firebird/org-skip-subtree-if-priority (priority)
-    "Skip an agenda subtree if it has a priority of PRIORITY.
+    (setq org-agenda-files '("~/Projects/agenda"))
+    (defun firebird/org-skip-subtree-if-priority (priority)
+      "Skip an agenda subtree if it has a priority of PRIORITY.
 
-PRIORITY maybe one of the characters ?A, ?B, or ?C."
-  (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-        (pri-value (* 1000 (- org-lowest-priority priority)))
-	(pri-current (org-get-priority (thing-at-point 'line t))))
-    (if (= pri-value pri-current)
-        subtree-end
-      nil)))
+  PRIORITY maybe one of the characters ?A, ?B, or ?C."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
 
-  (setq org-agenda-custom-commands
-        '(("d" "Daily agenda and all TODOs"
-           ((tags "PRIORITY=\"A\""
-                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
-            (alltodo ""
-                     ((org-agenda-skip-function '(or (firebird/org-skip-subtree-if-priority ?A)
-                                                     (org-agenda-skip-if nil '(scheduled deadline))))
-                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
-           ((org-agenda-compact-blocks t)))))
+    (setq org-agenda-custom-commands
+          '(("d" "Daily agenda and all TODOs"
+             ((tags "PRIORITY=\"A\""
+                    ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                     (org-agenda-overriding-header "High-priority unfinished tasks:")))
+              (alltodo ""
+                       ((org-agenda-skip-function '(or (firebird/org-skip-subtree-if-priority ?A)
+                                                       (org-agenda-skip-if nil '(scheduled deadline))))
+                        (org-agenda-overriding-header "ALL normal priority tasks:"))))
+             ((org-agenda-compact-blocks t)))))
 #+end_src
 *** Table of Contents
    toc-org provides toc without exporting it (useful for Github)
