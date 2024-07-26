@@ -28,6 +28,9 @@ eval "$(pyenv init -)"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 SPACESHIP_PYENV_SHOW=false
+SPACESHIP_ASYNC_SYMBOL=""
+#SPACESHIP_PROMPT_ASYNC=false
+#SPACESHIP_EXEC_TIME_PRECISION=0
 ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
@@ -88,7 +91,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-z zsh-autosuggestions docker yarn mix stack zsh-nvm pyenv)
+plugins=(git z zsh-autosuggestions podman yarn mix stack zsh-nvm pyenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -161,15 +164,17 @@ function vterm_printf() {
     fi
 }
 
+git-gitignore () {
+  curl "https://raw.githubusercontent.com/github/gitignore/master/$1.gitignore" >> .gitignore
+}
+
 # source /usr/share/nvm/init-nvm.sh
-[ -f "/home/firebird/.ghcup/env" ] && source "/home/firebird/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 . "$HOME/.cargo/env"
 
-export PATH=$PATH:/home/firebird/.go/bin
+export GOPATH=$HOME/go
 
-export GOPATH=/home/firebird/go
-
-export PATH=$PATH:/home/firebird/go/bin
+export PATH=$PATH:$GOPATH/bin
 
 export NVM_DIR="$HOME/.nvm"
 
