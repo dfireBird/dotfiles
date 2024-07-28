@@ -46,7 +46,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Keybindings for Program Launchers
-bindsym $mod+space exec --no-startup-id "rofi -show-icons -show drun"
+bindsym $alt+space exec --no-startup-id "rofi -show-icons -show drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show-icons -modi windowcd,window,drun -show window"
 
 # Keybindings for Screenshots
@@ -223,9 +223,9 @@ set_from_resource $fg i3wm.color7
 set_from_resource $bg i3wm.color2
 
 # class                 border  bground text    indicator child_border
-client.focused          $bg	$bg	$fg	$bg	  $bg
-client.focused_inactive $bg	$bg	$fg	$bg	  $bg
-client.unfocused        $bg	$bg	$fg	$bg	  $bg
-client.urgent           $bg	$bg	$fg	$bg	  $bg
-client.placeholder      $bg	$bg	$fg	$bg	  $bg
+# client.focused          $bg	$bg	$fg	$bg	  $bg
+# client.focused_inactive $bg	$bg	$fg	$bg	  $bg
+# client.unfocused        $bg	$bg	$fg	$bg	  $bg
+# client.urgent           $bg	$bg	$fg	$bg	  $bg
+# client.placeholder      $bg	$bg	$fg	$bg	  $bg
 
