@@ -1,20 +1,20 @@
-#!/usr/bin/env sh
-
-## Add this to your wm startup file.
+#!/usr/bin/env bash
 
 # Terminate already running bar instances
-killall -q polybar
+# If all your bars have ipc enabled, you can use 
+polybar-msg cmd quit
+# Otherwise you can use the nuclear option:
+# killall -q polybar
 
-# Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-
-# Launch bar1 and bar2
+# Launch
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-      MONITOR=$m polybar -c ~/.config/polybar/config.ini main &
+      echo "---" | tee -a "/tmp/polybar_main_${m}.log"
+      polybar main 2>&1 | tee -a "/tmp/polybar_main_${m}.log" & disown
   done
 else
-    polybar -c ~/.config/polybar/config.ini main &
+    echo "---" | tee -a "/tmp/polybar_main.log"
+    polybar main 2>&1 | tee -a /tmp/polybar_main.log & disown
 fi
 
-wal -R
+echo "Bars launched..."
