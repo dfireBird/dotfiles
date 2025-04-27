@@ -1,11 +1,4 @@
-(cat ~/.cache/wal/sequences &)
-
-# If you come from bash you might have to change your $PATH.
-#export DENO_INSTALL_ROOT=$HOME/.deno
-#export PATH=$PATH:$DENO_INSTALL_ROOT/bin
 export PATH=$HOME/bin:$PATH
-
-## I'm not using android atm so I disabled it
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools
@@ -27,9 +20,7 @@ eval "$(pyenv init -)"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-SPACESHIP_PYENV_SHOW=false
-SPACESHIP_ASYNC_SYMBOL=""
-#SPACESHIP_PROMPT_ASYNC=false
+SPACESHIP_ASYNC_SHOW=false
 #SPACESHIP_EXEC_TIME_PRECISION=0
 ZSH_THEME="spaceship"
 
@@ -122,9 +113,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias serialno="sudo dmidecode -s system-serial-number"
-alias py="python3"
 alias activate="source ./.venv/bin/activate"
 alias doom="emacs --with-profile doom"
+alias rg="rg  --fixed-strings --glob !cmake_install.cmake --glob !TAGS --glob !build/ --glob !CMakeFiles/ --glob !.ccls-cache/ --glob !^\.idea$/ --glob !^\.vscode$/ --glob !^\.ensime_cache$/ --glob !^\.eunit$/ --glob !^\.git$/ --glob !^\.hg$/ --glob !^\.fslckout$/ --glob !^_FOSSIL_$/ --glob !^\.bzr$/ --glob !^_darcs$/ --glob !^\.pijul$/ --glob !^\.tox$/ --glob !^\.svn$/ --glob !^\.stack-work$/ --glob !^\.ccls-cache$/ --glob !^\.cache$/ --glob !^\.clangd$/ --glob !^\.sl$/ --glob !^\.jj$/ --no-heading --line-number --with-filename --color=always"
 alias kernel_qemu="qemu-system-x86_64 -hda img/arch_disk.raw -m 3G -nographic -kernel linux/arch/x86_64/boot/bzImage -smp 1 -append \"root=/dev/sda rw console=ttyS0 loglevel=5\" -virtfs local,path=modules,mount_tag=modules,security_model=mapped-xattr --enable-kvm"
 
 extract ()
@@ -184,3 +175,5 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
