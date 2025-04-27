@@ -10,7 +10,7 @@ polybar-msg cmd quit
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
       echo "---" | tee -a "/tmp/polybar_main_${m}.log"
-      polybar main 2>&1 | tee -a "/tmp/polybar_main_${m}.log" & disown
+      env MONITOR="${m}" polybar main 2>&1 | tee -a "/tmp/polybar_main_${m}.log" & disown
   done
 else
     echo "---" | tee -a "/tmp/polybar_main.log"
