@@ -56,7 +56,6 @@
   - [[#htmlcss][HTML/CSS]]
   - [[#javascipt--typescript][JavaScipt / TypeScript]]
     - [[#react-config][React config]]
-    - [[#tsx][TSX]]
   - [[#cc][C/C++]]
     - [[#cmake][CMake]]
     - [[#ccls][CCLS]]
@@ -867,20 +866,6 @@ Used especially for editing file with root permissions
     :after yasnippet)
 #+end_src
 
-*** TSX
-TSX needs seprate config and TIDE can considered depercated with TS-LS.
-#+begin_src  emacs-lisp
-  (use-package tsi
-    :straight (tsi :type git :host github :repo "orzechowskid/tsi.el"))
-  (use-package tsx-mode
-    :straight (tsx-mode :type git :host github
-                        :repo "orzechowskid/tsx-mode.el" :branch "emacs28")
-
-    :mode ("\\.tsx\\'" . tsx-mode)
-    :hook (tsx-mode . lsp)
-    :custom
-    (tsx-mode-tsx-auto-tags 't))
-#+end_src
 
 ** C/C++
     No install is needed for C/C++ and its available as a core mode.
@@ -1193,4 +1178,6 @@ Install Pyls
 ** Game
 #+begin_src emacs-lisp
 (use-package 2048-game)
+
+(use-package monkeytype)
 #+end_src
