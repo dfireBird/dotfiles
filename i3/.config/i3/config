@@ -26,6 +26,7 @@ exec --no-startup-id udiskie --smart-tray
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec --no-startup-id solaar -w hide
 
 # Keyboard config
 # exec setxkbmap -layout us,us -variant colemak, -option grp:shifts_toggle,ctrl:nocaps,lv3:ralt_alt
@@ -57,6 +58,7 @@ bindsym --release Shift+Print exec flameshot gui
 bindsym --release Ctrl+Shift+Print exec i3-scrot -w
 
 bindsym --release $alt+Shift+x exec ~/bin/manga_screenshot
+bindsym --release $alt+Shift+z exec flameshot gui -s -c
 
 ## Windows
 
@@ -65,6 +67,13 @@ for_window [class=".*"] border none 1
 for_window [class=".*"] border pixel 0
 for_window [urgent=latest] focus
 
+for_window [window_role="pop-up"]                       floating enable
+for_window [window_role="bubble"]                       floating enable
+for_window [window_role="task_dialog"]                  floating enable
+for_window [window_role="Preferences"]                  floating enable
+for_window [window_type="dialog"]                       floating enable
+for_window [window_type="menu"]                         floating enable
+
 floating_maximum_size 1920 x 1080
 hide_edge_borders vertical
 
@@ -72,7 +81,7 @@ for_window [title="Discord Updater"] border none 0
 for_window [class="Alacritty"] layout default, border none 0
 for_window [class="Pcmanfm"] floating enable border normal
 for_window [class="opengl"] floating enable border normal
-for_window [class="godo_chess"] floating enable
+for_window [class="birb_chess"] fullscreen enable
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
