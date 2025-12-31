@@ -78,6 +78,12 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(defun doom/ediff-init-and-example ()
+  "ediff the current `init.el' with the example in doom-emacs-dir"
+  (interactive)
+  (ediff-files (expand-file-name "init.el" doom-user-dir)
+               (expand-file-name "init.example.el" (concat doom-emacs-dir "static"))))
+
 (setq projectile-project-search-path '("~/Projects/"))
 
 (use-package! pkgbuild-mode
@@ -143,6 +149,8 @@
 
 (map! "C-r" #'swiper-isearch-backward)
 
+(after! corfu
+  (setq corfu-preselect 'valid))
 (map! (:when (modulep! :completion corfu)
         (:after corfu
                 (:map corfu-mode-map
@@ -156,11 +164,14 @@
   (setq lsp-semantic-tokens-enable 't)
   (setq lsp-inlay-hint-enable 't)
 
+  (setq lsp-rust-analyzer-server-command '("/usr/bin/rust-analyzer"))
+
   ;; go related
   (lsp-register-custom-settings
-   '(("gopls.semanticTokens" t t)))
-  (setq lsp-go-analyses '((shadow . t)
-                          (unusedvariable . t))))
+   '(("gopls.completeUnimported" t t)
+     ("gopls.staticcheck" t t)
+     ("gopls.semanticTokens" t t)))
+  )
 
 (after! ccls
   (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
@@ -176,25 +187,16 @@
   (add-hook! 'emacs-lisp-mode-hook
     (add-hook 'flycheck-mode-hook #'flycheck-cask-setup nil t)))
 
-(after! treesit
-  (setq treesit-language-source-alist
-        '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src" nil nil)
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil))))
-
-(use-package! typescript-ts-mode
-  :mode (("\\.ts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode))
-  :config
-  (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!)
-  (add-hook! '(tsx-ts-mode-hook) #'rjsx-minor-mode #'emmet-mode)
-  (add-to-list 'emmet-jsx-major-modes tsx-ts-mode))
+;; (after! emmet-mode
+;;   (add-to-list 'emmet-jsx-major-modes tsx-ts-mode))
+;; (add-hook! '(typescript-ts-mode-hook tsx-ts-mode-hook) #'lsp!)
+;; (add-hook! '(tsx-ts-mode-hook) #'rjsx-minor-mode #'emmet-mode)
 
 
-
-(map!
- (:map tsx-ts-mode-map
-       "<" #'rjsx-electric-lt
-       ">" #'rjsx-electric-gt))
+;; (map!
+;;  (:map tsx-ts-mode-map
+;;        "<" #'rjsx-electric-lt
+;;        ">" #'rjsx-electric-gt))
 
 (use-package! lsp-tailwindcss
   :after lsp-mode
@@ -202,3 +204,19 @@
   (setq lsp-tailwindcss-add-on-mode t
         lsp-tailwindcss-server-version "0.14.15"
         lsp-tailwindcss-skip-config-check t))
+
+(after! go-ts-mode
+  (setq go-ts-mode-indent-offset 4))
+
+;; Astro
+(define-derived-mode astro-mode web-mode "astro")
+(setq auto-mode-alist
+      (append '((".*\\.astro\\'" . astro-mode))
+              auto-mode-alist))
+(add-hook #'astro-mode-hook #'lsp)
+
+;; LLM
+(after! gptel
+  (setq gptel-backend (gptel-make-gh-copilot "Copilot"))
+  (gptel-make-anthropic "Claude"
+    :stream t))

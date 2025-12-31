@@ -10,11 +10,20 @@
      (lsp-rust-analyzer-cargo-sysroot-src . "./library")
      (lsp-rust-analyzer-cargo-run-build-scripts quote t)))
  '(safe-local-variable-directories
-   '("/home/firebird/Projects/oss/rust-analyzer.test/"
+   '("/home/firebird/Projects/oss/rustc/"
+     "/home/firebird/Projects/oss/rust-analyzer.test/"
      "/home/firebird/Projects/oss/rust-analyzer/" "/home/firebird/.doom.d/"
      "~/emacsconfigs/doom-emacs/"))
  '(safe-local-variable-values
-   '((lsp-rust-analyzer-cargo-extra-env . ["RUSTC_BOOTSTRAP=1"])
+   '((lsp-rust-analyzer-cargo-extra-env quote (("RUSTC_BOOTSTRAP" . 1)))
+     (lsp-rust-analyzer-proc-macro-server
+      . "build/host/stage0/libexec/rust-analyzer-proc-macro-srv")
+     (lsp-rust-analyzer-proc-macro-enable quote t)
+     (lsp-rust-analyzer-linked-projects
+      . ["Cargo.toml" "compiler/rustc_codegen_cranelift/Cargo.toml"
+         "compiler/rustc_codegen_gcc/Cargo.toml" "library/Cargo.toml"
+         "src/bootstrap/Cargo.toml" "src/tools/rust-analyzer/Cargo.toml"])
+     (lsp-rust-analyzer-cargo-extra-env . ["RUSTC_BOOTSTRAP=1"])
      (lsp-rust-analyzer-rustc-source . "Cargo.toml")
      (lsp-rust-analyzer-cargo-sysroot-src . "library")
      (lsp-rust-analyzer-cargo-build-scripts-invocation-strategy . "once")
