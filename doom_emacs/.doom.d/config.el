@@ -93,8 +93,7 @@
                                 auto-mode-alist)))
 
 (use-package! ace-window
-  :bind
-  ("M-o"  . ace-window))
+  :bind ("M-o"  . ace-window))
 
 (use-package! mmm-mode
   :config
@@ -122,23 +121,14 @@
   (nyan-start-animation))
 
 (use-package! prettier-js
-  :bind ("C-c f")
   :hook
-  ((js2-mode . prettier-js-mode)
-   (typescript-mode . prettier-js-mode)
-   (rjsx-mode . prettier-js-mode)))
-
-(use-package! lsp-mode
-  :bind (:map lsp-mode-map
-              ("M-]" . lsp-execute-code-action)))
+  '((js2-mode . prettier-js-mode)
+    (typescript-mode . prettier-js-mode)
+    (rjsx-mode . prettier-js-mode)))
 
 (use-package! doom-modeline
   :config
   (setq doom-modeline-percent-position nil))
-
-(use-package! rustic
-  :config
-  (setq rustic-format-on-save nil))
 
 (after! magit
   (setq git-commit-summary-max-length 70))
@@ -151,10 +141,14 @@
 
 (after! corfu
   (setq corfu-preselect 'valid))
-(map! (:when (modulep! :completion corfu)
-        (:after corfu
-                (:map corfu-mode-map
-                      "C-;" #'completion-at-point))))
+
+(map! :when (modulep! :completion corfu)
+      :after corfu
+      :map corfu-mode-map
+      "C-;" #'completion-at-point)
+
+(after! rustic
+  (setq rustic-format-on-save nil))
 
 (map! :localleader :map rustic-mode-map "r" #'lsp-rust-analyzer-run)
 
@@ -170,8 +164,7 @@
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
      ("gopls.staticcheck" t t)
-     ("gopls.semanticTokens" t t)))
-  )
+     ("gopls.semanticTokens" t t))))
 
 (after! ccls
   (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
